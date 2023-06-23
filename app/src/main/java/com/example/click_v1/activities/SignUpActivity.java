@@ -100,7 +100,6 @@ public class SignUpActivity extends AppCompatActivity {
         byte[] bytes = byteArrayOutputStream.toByteArray();
         // image bytes data as base 64 string
         String data = Base64.encodeToString(bytes, Base64.DEFAULT);
-        Toast.makeText(this, data, Toast.LENGTH_LONG).show();
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
@@ -138,7 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
             showToast("Enter email");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()) {
-            showToast("Enter valid image");
+            showToast("Enter valid email");
             return false;
         } else if (binding.inputPassword.getText().toString().trim().isEmpty()) {
             showToast("Enter password");
