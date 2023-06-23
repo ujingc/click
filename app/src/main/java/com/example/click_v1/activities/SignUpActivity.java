@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private String encodeImage(Bitmap bitmap) {
         int previewWidth = 150;
-        int previewHeight = bitmap.getHeight() * bitmap.getWidth();
+        int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
         // scale bitmap to preview height and width
         Bitmap previousBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
         // create new byte stream to put compress bitmap and compress bitmap in JPEG format
@@ -99,6 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
         previousBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
         // image bytes data as base 64 string
+        String data = Base64.encodeToString(bytes, Base64.DEFAULT);
+        Toast.makeText(this, data, Toast.LENGTH_LONG).show();
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
