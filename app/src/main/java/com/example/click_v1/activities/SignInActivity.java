@@ -13,7 +13,7 @@ import com.example.click_v1.databinding.ActivitySignInBinding;
 public class SignInActivity extends AppCompatActivity {
     // automatically generate binding class as configured in
     private ActivitySignInBinding binding;
-Z
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
