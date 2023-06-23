@@ -27,4 +27,7 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class))
         );
     }
+
+
+
 }
