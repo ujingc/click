@@ -49,6 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
         binding.layoutImage.setOnClickListener(v -> {
+            // Start a Action pick media activity and ask for ready permission
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             pickImage.launch(intent);
@@ -61,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signUp() {
         loading(true);
+        // sign up new user in fire store
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         HashMap<String, Object> user = new HashMap<>();
         user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
@@ -70,12 +72,14 @@ public class SignUpActivity extends AppCompatActivity {
         database.collection(Constants.KEY_COLLECTION_USER)
                 .add(user)
                 .addOnSuccessListener(documentReference -> {
+                    // Save signup user data into persist preference
                     loading(false);
                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                     preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
                     preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    // start fresh new activity in main activity
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 })
@@ -88,22 +92,28 @@ public class SignUpActivity extends AppCompatActivity {
     private String encodeImage(Bitmap bitmap) {
         int previewWidth = 150;
         int previewHeight = bitmap.getHeight() * bitmap.getWidth();
+        // scale bitmap to preview height and width
         Bitmap previousBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+        // create new byte stream to put compress bitmap and compress bitmap in JPEG format
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         previousBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
+        // image bytes data as base 64 string
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
+            // process picked image after launching new media activity
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
                         Uri imageUri = result.getData().getData();
                         try {
+                            // imageUri as inputStream and convert into a Bitmap
                             InputStream inputStream = getContentResolver().openInputStream(imageUri);
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            // set image to Image View
                             binding.imageProfile.setImageBitmap(bitmap);
                             binding.textAddImage.setVisibility(View.GONE);
                             encodedImage = encodeImage(bitmap);

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreferenceManager {
-
+    // Application persist preference
     private final SharedPreferences sharedPreferences;
 
     public PreferenceManager(Context context) {
