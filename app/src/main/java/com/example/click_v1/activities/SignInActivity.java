@@ -31,6 +31,7 @@ public class SignInActivity extends AppCompatActivity {
             finish();
         }
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
+        // each activity needs a design view to show
         setContentView(binding.getRoot());
         setListeners();
     }
@@ -51,7 +52,7 @@ public class SignInActivity extends AppCompatActivity {
         loading(true);
         FirebaseFirestore databse = FirebaseFirestore.getInstance();
         // check password and username from db
-        databse.collection(Constants.KEY_COLLECTION_USER)
+        databse.collection(Constants.KEY_COLLECTION_USERS)
                 .whereEqualTo(Constants.KEY_EMAIL, binding.inputEmail.getText().toString())
                 .whereEqualTo(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString())
                 .get()
@@ -63,6 +64,7 @@ public class SignInActivity extends AppCompatActivity {
                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                         preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
                         preferenceManager.putString(Constants.KEY_NAME, documentSnapshot.getString(Constants.KEY_NAME));
+                        preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
