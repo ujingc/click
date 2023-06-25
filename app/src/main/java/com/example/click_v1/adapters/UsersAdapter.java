@@ -10,13 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.click_v1.databinding.ItemContainerUserBinding;
+import com.example.click_v1.listeners.UserListener;
 import com.example.click_v1.models.User;
 
 import java.util.List;
 
 
 // Recycle view class extends data model
-// UserViewHolder, super itemView receive from binding or Inflate item layout, bind view data to this class
+// UserViewHolder, super itemView receive from binding's root Inflate item layout, (maybe bind view data to this class)
 // define onCreateViewHolder, pass Inflate item layout or binding to UserViewHolder
 // onBindViewHolder, receive ViewHolder and set data to holder by its position
 // getItemCount return data size
@@ -24,7 +25,9 @@ import java.util.List;
 
 public class  UsersAdapter extends  RecyclerView.Adapter<UsersAdapter.UserViewHolder>{
     private final List<User> users;
-    public UsersAdapter(List<User> users) {
+    private final UserListener userListener;
+    public UsersAdapter(List<User> users, UserListener userListener) {
+        this.userListener = userListener;
         this.users = users;
     }
 
@@ -57,10 +60,11 @@ public class  UsersAdapter extends  RecyclerView.Adapter<UsersAdapter.UserViewHo
         // set user data method for onBindViewHolder
         void setUserData(User user) {
              binding.textName.setText(user.name);
-             binding.textEmail.setText(user.name);
+             binding.textEmail.setText(user.email);
              if(null != user.image) {
                 binding.imageProfile.setImageBitmap(getUserImage(user.image));
              }
+             binding.getRoot().setOnClickListener(v-> userListener.onUserClick(user));
         }
     }
 

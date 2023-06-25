@@ -2,11 +2,13 @@ package com.example.click_v1.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.click_v1.adapters.UsersAdapter;
 import com.example.click_v1.databinding.ActivityUsersBinding;
+import com.example.click_v1.listeners.UserListener;
 import com.example.click_v1.models.User;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
@@ -16,7 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersActivity extends AppCompatActivity {
+public class UsersActivity extends AppCompatActivity implements UserListener {
     private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
 
@@ -61,7 +63,7 @@ public class UsersActivity extends AppCompatActivity {
                         }
                         if(users.size() > 0) {
                             // created adapter and setAdapter for usersRecycleView
-                            UsersAdapter usersAdapter = new UsersAdapter(users);
+                            UsersAdapter usersAdapter = new UsersAdapter(users, this);
                             binding.usersRecycleView.setAdapter(usersAdapter);
                             binding.usersRecycleView.setVisibility(View.VISIBLE);
                         } else {
@@ -84,6 +86,13 @@ public class UsersActivity extends AppCompatActivity {
         } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
         }
+    }
 
+    @Override
+    public void onUserClick(User user) {
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        intent.putExtra(Constants.KEY_USER, user);
+        startActivity(intent);
+        finish();
     }
 }
