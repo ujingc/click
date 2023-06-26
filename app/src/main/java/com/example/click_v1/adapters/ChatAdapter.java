@@ -3,13 +3,13 @@ package com.example.click_v1.adapters;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.click_v1.databinding.ItemContainerReceivedMessageBinding;
 import com.example.click_v1.databinding.ItemContainerSentMessageBinding;
-import com.example.click_v1.databinding.ItemContainerUserBinding;
 import com.example.click_v1.models.ChatMessage;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     )
             );
         } else {
-            return new ReceiveMessageViewHolder(
+            return new ReceivedMessageViewHolder(
                     ItemContainerReceivedMessageBinding.inflate(
                             LayoutInflater.from(parent.getContext()),
                             parent,
@@ -54,11 +54,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // set data by view type, ((SentMessageViewHolder) holder) reference to two different holder
-
         if(getItemViewType(position) == VIEW_TYPE_SENT) {
             ((SentMessageViewHolder) holder).setData(chatMessages.get(position));
         } else {
-            ((ReceiveMessageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
+            ((ReceivedMessageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
         }
     }
 
@@ -89,10 +88,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             binding.textDateTime.setText(chatMessage.dateTime);
         }
     }
-    static class ReceiveMessageViewHolder extends  RecyclerView.ViewHolder{
+    static class ReceivedMessageViewHolder extends  RecyclerView.ViewHolder{
         private final ItemContainerReceivedMessageBinding binding;
 
-        ReceiveMessageViewHolder(ItemContainerReceivedMessageBinding itemContainerReceivedMessageBinding) {
+        ReceivedMessageViewHolder(ItemContainerReceivedMessageBinding itemContainerReceivedMessageBinding) {
             super(itemContainerReceivedMessageBinding.getRoot());
             binding = itemContainerReceivedMessageBinding;
         }
