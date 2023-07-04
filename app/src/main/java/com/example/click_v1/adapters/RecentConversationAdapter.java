@@ -5,22 +5,27 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.click_v1.databinding.ItemContainerRecentConverationBinding;
+import com.example.click_v1.listeners.ConversationListener;
 import com.example.click_v1.models.ChatMessage;
+import com.example.click_v1.models.User;
 
 import java.util.List;
 
 
 public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConversationAdapter.ConversationViewHolder>{
-
+    // display at the main activity which has last message, sender or receiver image, and name
     private final List<ChatMessage> chatMessages;
+    private final ConversationListener conversationListener;
 
-    public RecentConversationAdapter(List<ChatMessage> chatMessages) {
+    public RecentConversationAdapter(List<ChatMessage> chatMessages, ConversationListener conversationListener) {
         this.chatMessages = chatMessages;
+        this.conversationListener = conversationListener;
     }
 
     @NonNull
@@ -55,9 +60,19 @@ public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConver
         }
 
         void setData(ChatMessage chatMessage) {
+            Toast.makeText(binding.getRoot().getContext(), "image" + chatMessage.conversationImage, Toast.LENGTH_SHORT).show();
+            if(chatMessage.conversationImage != null) {
             binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
+            }
             binding.textName.setText(chatMessage.conversationName);
             binding.textRecentMessage.setText(chatMessage.message);
+            binding.getRoot().setOnClickListener(v->{
+                User user = new User();
+                user.id = chatMessage.conversationId;
+                user.name = chatMessage.conversationName;
+                user.image = chatMessage.conversationImage;
+                conversationListener.onConversationClicked(user);
+            });
         }
     }
 

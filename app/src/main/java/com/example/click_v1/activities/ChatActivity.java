@@ -87,7 +87,9 @@ public class ChatActivity extends AppCompatActivity {
             conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
             conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
             conversation.put(Constants.KEY_SENDER_IAMGE, preferenceManager.getString(Constants.KEY_IMAGE));
+            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
             conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.name);
+            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
             conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
             conversation.put(Constants.KEY_TIMESTAMP, new Date());
             addConversation(conversation);
