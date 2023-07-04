@@ -16,7 +16,10 @@ import com.example.click_v1.models.ChatMessage;
 import com.example.click_v1.models.User;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,6 +40,8 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private ChatAdapter chatAdapter;
     private List<ChatMessage> chatMessages;
+
+    private String conversationId = null;
 
     private Bitmap getBitmapFromEncodedString(String encodedImage) {
         byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
@@ -75,6 +80,18 @@ public class ChatActivity extends AppCompatActivity {
         message.put(Constants.KEY_TIMESTAMP, new Date());
         // put message into database
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        if(conversationId != null) {
+            updateConversation(binding.inputMessage.getText().toString());
+        } else {
+            HashMap<String, Object> conversation = new HashMap<>();
+            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
+            conversation.put(Constants.KEY_SENDER_IAMGE, preferenceManager.getString(Constants.KEY_IMAGE));
+            conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.name);
+            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
+            conversation.put(Constants.KEY_TIMESTAMP, new Date());
+            addConversation(conversation);
+        }
         binding.inputMessage.setText(null);
     }
 
@@ -126,6 +143,9 @@ public class ChatActivity extends AppCompatActivity {
         }
         // set message recycler to be invisible
         binding.processBar.setVisibility(View.GONE);
+        if(conversationId == null) {
+            checkForConversation();
+        }
     };
 
     private void loadReceiverDetails() {
@@ -141,4 +161,45 @@ public class ChatActivity extends AppCompatActivity {
     private String getReadableDateTime(Date date) {
         return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
+
+    private void addConversation(HashMap<String,Object> conversation) {
+        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .add(conversation)
+                .addOnSuccessListener(documentReference -> conversationId = documentReference.getId());
+    }
+
+    private void updateConversation(String message) {
+        DocumentReference documentReference =
+                database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversationId);
+        documentReference.update(
+                Constants.KEY_LAST_MESSAGE, message,
+                Constants.KEY_TIMESTAMP, new Date()
+        );
+    }
+
+    private void checkForConversation() {
+        if(chatMessages.size() != 0) {
+            checkForConversationRemotely(
+                    preferenceManager.getString(Constants.KEY_USER_ID),
+                    receiverUser.id);
+            checkForConversationRemotely(receiverUser.id,
+                    preferenceManager.getString(Constants.KEY_USER_ID));
+        }
+    }
+
+    private void checkForConversationRemotely(String senderId, String receiverId) {
+        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .whereEqualTo(Constants.KEY_SENDER_ID, senderId)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverId)
+                .get()
+                .addOnCompleteListener(conversationOnCompleteListener);
+    }
+
+    private final OnCompleteListener<QuerySnapshot> conversationOnCompleteListener = task -> {
+        if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+            conversationId = documentSnapshot.getId();
+        }
+
+    };
 }

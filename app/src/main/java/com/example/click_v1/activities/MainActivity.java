@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.widget.Toast;
 
+import com.example.click_v1.adapters.RecentConversationAdapter;
 import com.example.click_v1.databinding.ActivityMainBinding;
+import com.example.click_v1.models.ChatMessage;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentReference;
@@ -17,7 +19,9 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,17 +29,28 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
 
+    private List<ChatMessage> conversations;
+    private RecentConversationAdapter conversationAdapter;
+    private FirebaseFirestore database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+        init();
         loadUserDetails();
         getToken();
         setListeners();
     }
 
+    private void init() {
+        conversations = new ArrayList<>();
+        conversationAdapter = new RecentConversationAdapter(conversations);
+        binding.conversationsRecyclerView.setAdapter(conversationAdapter);
+        database = FirebaseFirestore.getInstance();
+    }
 
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
