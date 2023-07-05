@@ -1,8 +1,5 @@
 package com.example.click_v1.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,16 +29,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
     private ActivityChatBinding binding;
     private User receiverUser;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
     private ChatAdapter chatAdapter;
     private List<ChatMessage> chatMessages;
-
     private String conversationId = null;
+    private Boolean isReceiverAvailable = false;
 
     private Bitmap getBitmapFromEncodedString(String encodedImage) {
         byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
@@ -62,11 +60,7 @@ public class ChatActivity extends AppCompatActivity {
     private void init() {
         preferenceManager = new PreferenceManager(getApplicationContext());
         chatMessages = new ArrayList<>();
-        chatAdapter = new ChatAdapter(
-                chatMessages,
-                getBitmapFromEncodedString(receiverUser.image),
-                preferenceManager.getString(Constants.KEY_USER_ID)
-        );
+        chatAdapter = new ChatAdapter(chatMessages, getBitmapFromEncodedString(receiverUser.image), preferenceManager.getString(Constants.KEY_USER_ID));
         binding.chatRecyclerView.setAdapter(chatAdapter);
         binding.chatRecyclerView.setVisibility(View.VISIBLE);
         database = FirebaseFirestore.getInstance();
@@ -80,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         message.put(Constants.KEY_TIMESTAMP, new Date());
         // put message into database
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-        if(conversationId != null) {
+        if (conversationId != null) {
             updateConversation(binding.inputMessage.getText().toString());
         } else {
             HashMap<String, Object> conversation = new HashMap<>();
@@ -97,16 +91,29 @@ public class ChatActivity extends AppCompatActivity {
         binding.inputMessage.setText(null);
     }
 
-    private void listenMessages() {
-        database.collection(Constants.KEY_COLLECTION_CHAT)
-                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.id)
-                .addSnapshotListener(eventListener);
+    private void listenAvailabilityOfReceiver() {
+        database.collection(Constants.KEY_COLLECTION_USERS).document(receiverUser.id).addSnapshotListener(ChatActivity.this, (value, error) -> {
+            if (error != null) {
+                return;
+            }
+            if (value != null) {
+                if (value.getLong(Constants.KEY_AVAILABILITY) != null) {
+                    int availability = Objects.requireNonNull(value.getLong(Constants.KEY_AVAILABILITY)).intValue();
+                    isReceiverAvailable = availability == 1;
+                }
+            }
+            if(isReceiverAvailable) {
+                binding.textAvailability.setVisibility(View.VISIBLE);
+            } else {
+                binding.textAvailability.setVisibility(View.GONE);
+            }
+        });
+    }
 
-        database.collection(Constants.KEY_COLLECTION_CHAT)
-                .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id)
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
-                .addSnapshotListener(eventListener);
+    private void listenMessages() {
+        database.collection(Constants.KEY_COLLECTION_CHAT).whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.id).addSnapshotListener(eventListener);
+
+        database.collection(Constants.KEY_COLLECTION_CHAT).whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id).whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).addSnapshotListener(eventListener);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -145,7 +152,7 @@ public class ChatActivity extends AppCompatActivity {
         }
         // set message recycler to be invisible
         binding.processBar.setVisibility(View.GONE);
-        if(conversationId == null) {
+        if (conversationId == null) {
             checkForConversation();
         }
     };
@@ -164,37 +171,24 @@ public class ChatActivity extends AppCompatActivity {
         return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
 
-    private void addConversation(HashMap<String,Object> conversation) {
-        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
-                .add(conversation)
-                .addOnSuccessListener(documentReference -> conversationId = documentReference.getId());
+    private void addConversation(HashMap<String, Object> conversation) {
+        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).add(conversation).addOnSuccessListener(documentReference -> conversationId = documentReference.getId());
     }
 
     private void updateConversation(String message) {
-        DocumentReference documentReference =
-                database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversationId);
-        documentReference.update(
-                Constants.KEY_LAST_MESSAGE, message,
-                Constants.KEY_TIMESTAMP, new Date()
-        );
+        DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversationId);
+        documentReference.update(Constants.KEY_LAST_MESSAGE, message, Constants.KEY_TIMESTAMP, new Date());
     }
 
     private void checkForConversation() {
-        if(chatMessages.size() != 0) {
-            checkForConversationRemotely(
-                    preferenceManager.getString(Constants.KEY_USER_ID),
-                    receiverUser.id);
-            checkForConversationRemotely(receiverUser.id,
-                    preferenceManager.getString(Constants.KEY_USER_ID));
+        if (chatMessages.size() != 0) {
+            checkForConversationRemotely(preferenceManager.getString(Constants.KEY_USER_ID), receiverUser.id);
+            checkForConversationRemotely(receiverUser.id, preferenceManager.getString(Constants.KEY_USER_ID));
         }
     }
 
     private void checkForConversationRemotely(String senderId, String receiverId) {
-        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
-                .whereEqualTo(Constants.KEY_SENDER_ID, senderId)
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverId)
-                .get()
-                .addOnCompleteListener(conversationOnCompleteListener);
+        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).whereEqualTo(Constants.KEY_SENDER_ID, senderId).whereEqualTo(Constants.KEY_RECEIVER_ID, receiverId).get().addOnCompleteListener(conversationOnCompleteListener);
     }
 
     private final OnCompleteListener<QuerySnapshot> conversationOnCompleteListener = task -> {
@@ -202,6 +196,11 @@ public class ChatActivity extends AppCompatActivity {
             DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
             conversationId = documentSnapshot.getId();
         }
-
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listenAvailabilityOfReceiver();
+    }
 }

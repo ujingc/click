@@ -1,7 +1,5 @@
 package com.example.click_v1.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +8,6 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.click_v1.adapters.ChatAdapter;
 import com.example.click_v1.adapters.RecentConversationAdapter;
 import com.example.click_v1.databinding.ActivityMainBinding;
 import com.example.click_v1.listeners.ConversationListener;
@@ -32,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements ConversationListener {
+public class MainActivity extends BaseActivity implements ConversationListener {
 
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
 
     private void listenConversations() {
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
-                .whereEqualTo(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID))
+                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
                 .addSnapshotListener(eventListener);
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
                 .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
@@ -88,19 +85,19 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
     }
 
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
-        if(error != null) {
+        if (error != null) {
             return;
         }
         if (value != null) {
             // listen to conversations record, and set chat message by conversations
-            for(DocumentChange documentChange : value.getDocumentChanges()) {
-                if(documentChange.getType() == DocumentChange.Type.ADDED) {
+            for (DocumentChange documentChange : value.getDocumentChanges()) {
+                if (documentChange.getType() == DocumentChange.Type.ADDED) {
                     String senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
                     String receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
                     ChatMessage chatMessage = new ChatMessage();
                     chatMessage.senderId = senderId;
                     chatMessage.receiverId = receiverId;
-                    if(preferenceManager.getString(Constants.KEY_USER_ID).equals(senderId)) {
+                    if (preferenceManager.getString(Constants.KEY_USER_ID).equals(senderId)) {
                         chatMessage.conversationImage = documentChange.getDocument().getString(Constants.KEY_RECEIVER_IMAGE);
                         chatMessage.conversationName = documentChange.getDocument().getString(Constants.KEY_RECEIVER_NAME);
                         chatMessage.conversationId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
@@ -113,10 +110,10 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
                     chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
                     conversations.add(chatMessage);
                 } else if (documentChange.getType() == DocumentChange.Type.MODIFIED) {
-                    for(int i = 0; i<conversations.size(); i++) {
+                    for (int i = 0; i < conversations.size(); i++) {
                         String senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
                         String receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
-                        if(conversations.get(i).senderId.equals(senderId) && conversations.get(i).receiverId.equals(receiverId)) {
+                        if (conversations.get(i).senderId.equals(senderId) && conversations.get(i).receiverId.equals(receiverId)) {
                             conversations.get(i).message = documentChange.getDocument().getString(Constants.KEY_LAST_MESSAGE);
                             conversations.get(i).dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
                             break;
@@ -155,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
                 preferenceManager.getString(Constants.KEY_USER_ID)
         );
         // create a map with key fcm token and empty value
-        HashMap<String,Object> updates = new HashMap<>();
+        HashMap<String, Object> updates = new HashMap<>();
         // empty key fcm token in database
         updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
         documentReference.update(updates).addOnSuccessListener(unused -> {

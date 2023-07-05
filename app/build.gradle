@@ -59,4 +59,9 @@ dependencies {
     //DEX Dalvik Executable file contains compiled code to run app, limits number of methods
     // MultiDex
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Retrofit for online status
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
 }

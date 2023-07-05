@@ -1,7 +1,5 @@
 package com.example.click_v1.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersActivity extends AppCompatActivity implements UserListener {
+public class UsersActivity extends BaseActivity implements UserListener {
     private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
 
@@ -47,11 +45,11 @@ public class UsersActivity extends AppCompatActivity implements UserListener {
                     loading(false);
                     // get current user ID from preference
                     String currentUserId = preferenceManager.getString(Constants.KEY_USER_ID);
-                    if(task.isSuccessful() && task.getResult() != null) {
+                    if (task.isSuccessful() && task.getResult() != null) {
                         List<User> users = new ArrayList<>();
                         // each queryDocumentSnapshot contains a user data
-                        for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
-                            if(currentUserId.equals(queryDocumentSnapshot.getId())) {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                            if (currentUserId.equals(queryDocumentSnapshot.getId())) {
                                 continue;
                             }
                             User user = new User();
@@ -62,7 +60,7 @@ public class UsersActivity extends AppCompatActivity implements UserListener {
                             user.id = queryDocumentSnapshot.getId();
                             users.add(user);
                         }
-                        if(users.size() > 0) {
+                        if (users.size() > 0) {
                             // created adapter and setAdapter for usersRecycleView
                             UsersAdapter usersAdapter = new UsersAdapter(users, this);
                             binding.usersRecycleView.setAdapter(usersAdapter);
@@ -82,7 +80,7 @@ public class UsersActivity extends AppCompatActivity implements UserListener {
     }
 
     private void loading(Boolean isLoading) {
-        if(isLoading) {
+        if (isLoading) {
             binding.progressBar.setVisibility(View.VISIBLE);
         } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
