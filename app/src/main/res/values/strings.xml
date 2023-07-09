@@ -13,4 +13,8 @@
     <string name="select_user">Select User</string>
     <string name="type_a_message">Type a message</string>
     <string name="online">Online</string>
+    <string name="facebook_app_id">804160104620796</string>
+    <string name="fb_login_protocol_scheme">fb804160104620796</string>
+    <string name="facebook_client_token">962309dc8b74d5de5db0bc9a038b2d3f</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
 </resources>

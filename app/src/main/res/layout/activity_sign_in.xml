@@ -89,7 +89,10 @@
 
         </FrameLayout>
 
-
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/buttonSignInFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"/>
 
         <TextView
             android:id="@+id/textCreateNewAccount"
@@ -100,6 +103,8 @@
             android:text="@string/create_new_account"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold" />
+
+
 
     </LinearLayout>
 

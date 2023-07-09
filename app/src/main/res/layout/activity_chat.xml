@@ -36,18 +36,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageBack"
         android:background="@color/primary"/>
 
-    <TextView
-        android:id="@+id/textAvailability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/online"
-        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
-        android:background="@color/green"
-        android:textSize="@dimen/_10ssp"
-        android:padding="@dimen/_2sdp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
@@ -61,7 +49,7 @@
         app:stackFromEnd="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@id/viewBackground"
-        app:layout_constraintTop_toBottomOf="@id/textAvailability" />
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter" />
 
 <!--        cliptoPadding set to false, only applies padding to the end of items-->
     <ProgressBar
@@ -161,5 +149,18 @@
         app:layout_constraintEnd_toStartOf="@+id/layoutSend"
         app:layout_constraintStart_toStartOf="parent"
         />
+
+    <TextView
+        android:id="@+id/textAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/online"
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
+        android:background="@color/green"
+        android:textSize="@dimen/_10ssp"
+        android:padding="@dimen/_2sdp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

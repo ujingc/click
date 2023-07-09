@@ -60,7 +60,6 @@ public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConver
         }
 
         void setData(ChatMessage chatMessage) {
-            Toast.makeText(binding.getRoot().getContext(), "image" + chatMessage.conversationImage, Toast.LENGTH_SHORT).show();
             if(chatMessage.conversationImage != null) {
             binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
             }
