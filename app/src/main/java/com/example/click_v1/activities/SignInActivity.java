@@ -1,7 +1,6 @@
 package com.example.click_v1.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,14 +9,10 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.click_v1.R;
 import com.example.click_v1.databinding.ActivitySignInBinding;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,11 +21,11 @@ public class SignInActivity extends AppCompatActivity {
     // automatically generate binding class as configured in
     private ActivitySignInBinding binding;
     private PreferenceManager preferenceManager;
-    CallbackManager callbackManager = CallbackManager.Factory.create();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // break
         preferenceManager = new PreferenceManager(getApplicationContext());
         if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -42,35 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         // each activity needs a design view to show
         setContentView(binding.getRoot());
         setListeners();
-
-
-        binding.buttonSignInFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(SignInActivity.this, "login sucess", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(@NonNull FacebookException e) {
-                Toast.makeText(SignInActivity.this, "login failed", Toast.LENGTH_SHORT).show();
-
-            }
-
-        });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
 
     private void setListeners() {
         // contain direct references to all views that have an ID
@@ -83,7 +50,9 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
         binding.buttonSignInFacebook.setOnClickListener(v->{
-            // TODO
+            Intent intent = new Intent(getApplicationContext(), FacebookAuthActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
         });
     }
 
