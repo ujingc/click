@@ -20,6 +20,7 @@
     <string name="google_map_api_key">AIzaSyD_OEKDAJ2Ni26UaoxbQDOcAdu2ZrE0hVg</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_password">Forgot Password</string>
 
 
 </resources>

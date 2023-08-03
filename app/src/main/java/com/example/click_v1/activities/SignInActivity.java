@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.click_v1.databinding.ActivitySignInBinding;
+import com.example.click_v1.fragement.ForgotPasswordFragment;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
 
@@ -28,6 +30,7 @@ public class SignInActivity extends AppCompatActivity {
         // break
         preferenceManager = new PreferenceManager(getApplicationContext());
         if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+            Log.d("TAG", "onCreate: users signed in, redirecting to main activity");
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -51,6 +54,11 @@ public class SignInActivity extends AppCompatActivity {
         });
         binding.buttonSignInFacebook.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), FacebookAuthActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+        });
+        binding.forgotPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), ForgotPasswordFragment.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
         });
