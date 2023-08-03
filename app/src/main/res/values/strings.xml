@@ -17,4 +17,9 @@
     <string name="fb_login_protocol_scheme">fb804160104620796</string>
     <string name="facebook_client_token">962309dc8b74d5de5db0bc9a038b2d3f</string>
     <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="google_map_api_key">AIzaSyD_OEKDAJ2Ni26UaoxbQDOcAdu2ZrE0hVg</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
