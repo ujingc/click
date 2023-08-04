@@ -19,6 +19,14 @@
     <color name="social_accent">#00552E</color>
     <color name="social_green">#004827</color>
 
-
-
+    <!--dashboard app-->
+    <color name="bottom_bar_indicator_color">#D4F5FA</color>
+    <color name="bottom_bar_icon_tint">#CFD0E2</color>
+    <color name="bottom_bar_icon_tint_active">#35B7CF</color>
+    <color name="bottom_bar_text_color">#3587CF</color>
+    <color name="background">#F8FCFD</color>
+    <color name="primary_label">#212121</color>
+    <color name="secondary_label">#757575</color>
+    <color name="search_background">#F3F6FB</color>
+    <color name="favourite_background">#FF7173</color>
 </resources>

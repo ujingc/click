@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
+
 import com.example.click_v1.adapters.RecentConversationAdapter;
 import com.example.click_v1.databinding.ActivityMainBinding;
 import com.example.click_v1.listeners.ConversationListener;
@@ -38,6 +39,8 @@ public class MainActivity extends BaseActivity implements ConversationListener {
     private RecentConversationAdapter conversationsAdapter;
     private FirebaseFirestore database;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,6 @@ public class MainActivity extends BaseActivity implements ConversationListener {
         binding.conversationsRecyclerView.setAdapter(conversationsAdapter);
         database = FirebaseFirestore.getInstance();
     }
-
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
         binding.fabNewChat.setOnClickListener(v ->

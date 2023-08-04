@@ -3,4 +3,11 @@
         <item name="colorPrimary">@color/social_green</item>
         <item name="android:statusBarColor">@color/primary</item>
     </style>
+
+    <style name="FullScreen" parent="Theme.Click_v1">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

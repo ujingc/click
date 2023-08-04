@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuChat"
+        android:icon="@drawable/round_chat"
+        android:title="@string/chat"/>
+    <item android:id="@+id/menuMeet"
+        android:icon="@drawable/round_earth"
+        android:title="@string/meet"/>
+    <item android:id="@+id/menuAdd"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add"/>
+    <item android:id="@+id/menuMe"
+        android:icon="@drawable/round_person"
+        android:title="@string/me"/>
+</menu>
