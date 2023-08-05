@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="@dimen/_8sdp" />
-    
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageSignOut"
         android:layout_width="@dimen/_30sdp"
@@ -55,165 +55,48 @@
         app:layout_constraintStart_toEndOf="@id/imageProfile"
         app:layout_constraintTop_toTopOf="@id/imageProfile"/>
 
-    <LinearLayout
-        android:id="@+id/layoutSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@drawable/background_search"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@+id/imageProfile"
-        android:orientation="horizontal" >
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/layoutSearch"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/_16sdp"-->
+    <!--        android:layout_marginTop="@dimen/_16sdp"-->
+    <!--        android:layout_marginEnd="@dimen/_16sdp"-->
+    <!--        android:background="@drawable/background_search"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:paddingStart="@dimen/_16sdp"-->
+    <!--        android:paddingTop="@dimen/_8sdp"-->
+    <!--        android:paddingEnd="@dimen/_8sdp"-->
+    <!--        android:paddingBottom="@dimen/_8sdp"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/imageProfile"-->
+    <!--        android:orientation="horizontal" >-->
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_22sdp"
-            android:src="@drawable/round_search"
-            app:tint="@color/primary_label"/>
-        <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:background="@null"
-            android:hint="Search"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:textColor="@color/primary_label"
-            android:textColorHint="@color/primary_label"
-            android:textSize="@dimen/_13ssp"
-            />
-    </LinearLayout>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="@dimen/_3sdp"
-        app:layout_constraintBottom_toTopOf="@id/smoothBottomBar">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp">
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/userProfileImage"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="@dimen/_8sdp"/>
+    <!--        <androidx.appcompat.widget.AppCompatImageView-->
+    <!--            android:layout_width="@dimen/_22sdp"-->
+    <!--            android:layout_height="@dimen/_22sdp"-->
+    <!--            android:src="@drawable/round_search"-->
+    <!--            app:tint="@color/primary_label"/>-->
+    <!--        <EditText-->
+    <!--            android:id="@+id/search"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_marginStart="@dimen/_8sdp"-->
+    <!--            android:background="@null"-->
+    <!--            android:hint="Search"-->
+    <!--            android:importantForAutofill="no"-->
+    <!--            android:inputType="text"-->
+    <!--            android:textColor="@color/primary_label"-->
+    <!--            android:textColorHint="@color/primary_label"-->
+    <!--            android:textSize="@dimen/_13ssp"-->
+    <!--            />-->
+    <!--    </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userProfileImage"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/chen"
-                    android:textColor="@color/primary_label"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:text="@string/_25"
-                    android:textColor="@color/secondary_label"
-                    android:textSize="@dimen/_11ssp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:text="@string/helsinki"
-                    android:textColor="@color/secondary_label"
-                    android:textSize="@dimen/_11ssp"/>
-
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                     android:layout_marginTop="@dimen/_4sdp"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="4.5"/>
-
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@color/favourite_background"
-                android:padding="@dimen/_5sdp"
-                android:src="@drawable/round_favorite"
-                app:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:text="@string/profile"
-        android:textColor="@color/primary_label"
-        android:textSize="@dimen/_13ssp"
-        android:translationZ="90dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/cardProfile"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/textProfileViewAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:text="@string/view_all"
-        android:textColor="@color/secondary_label"
-        android:textSize="@dimen/_11ssp"
-        android:translationZ="90dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/textProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textProfile"/>
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/smoothBottomBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
+
         android:background="@color/background"
         app:iconSize="@dimen/_18sdp"
         app:iconTint="@color/bottom_bar_icon_tint"
@@ -244,39 +127,40 @@
         app:layout_constraintTop_toTopOf="@id/imageProfile"/>
 
 
-<!--    <View-->
-<!--        android:id="@+id/viewBackground"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="@dimen/_16sdp"-->
-<!--        android:background="@drawable/background_content_bottom"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageProfile"/>-->
+    <!--    <View-->
+    <!--        android:id="@+id/viewBackground"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="@dimen/_16sdp"-->
+    <!--        android:background="@drawable/background_content_bottom"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/imageProfile"/>-->
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/background_content_bottom"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSearch"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imageProfile"
+        app:layout_constraintBottom_toTopOf="@id/smoothBottomBar">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/conversationsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            android:padding="@dimen/_20sdp"
-            android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/conversationsRecyclerView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:clipToPadding="false"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:overScrollMode="never"-->
+        <!--            android:padding="@dimen/_20sdp"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_gravity="center"/>
+        <!--        <ProgressBar-->
+        <!--            android:id="@+id/progressBar"-->
+        <!--            android:layout_width="@dimen/_25sdp"-->
+        <!--            android:layout_height="@dimen/_25sdp"-->
+        <!--            android:layout_gravity="center"/>-->
 
     </FrameLayout>
 
@@ -284,18 +168,18 @@
 
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewChat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_24sdp"
-        android:layout_marginRight="@dimen/_24sdp"
-        android:layout_marginBottom="@dimen/_174sdp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_add"
-        android:backgroundTint="@color/primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white"/>
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fabNewChat"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="@dimen/_24sdp"-->
+    <!--        android:layout_marginRight="@dimen/_24sdp"-->
+    <!--        android:layout_marginBottom="@dimen/_174sdp"-->
+    <!--        android:contentDescription="@string/app_name"-->
+    <!--        android:src="@drawable/ic_add"-->
+    <!--        android:backgroundTint="@color/primary"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:tint="@color/white"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

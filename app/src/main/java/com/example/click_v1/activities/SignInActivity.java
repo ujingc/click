@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.click_v1.databinding.ActivitySignInBinding;
-import com.example.click_v1.fragement.ForgotPasswordFragment;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
 
@@ -58,9 +57,9 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(intent);
         });
         binding.forgotPassword.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), ForgotPasswordFragment.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), ForgotPasswordFragment.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            startActivity(intent);
         });
     }
 
