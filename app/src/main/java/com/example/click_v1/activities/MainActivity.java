@@ -1,6 +1,8 @@
 package com.example.click_v1.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,6 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,6 +35,8 @@ import com.example.click_v1.models.Profile;
 import com.example.click_v1.models.User;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
@@ -44,7 +51,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
@@ -54,18 +60,27 @@ public class MainActivity extends BaseActivity {
     private RecentConversationAdapter conversationsAdapter;
     private FirebaseFirestore database;
 
-
+    FusedLocationProviderClient fusedLocationProviderClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         replaceFragment(new ChatFragment());
         init();
         loadUserDetails();
         getToken();
         setListeners();
+        showToast("asking for permistion");
+        ActivityCompat.requestPermissions(this,
+                new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA},
+                225);
 //        listenConversations();
     }
 
@@ -77,6 +92,7 @@ public class MainActivity extends BaseActivity {
 //        binding.conversationsRecyclerView.setAdapter(conversationsAdapter);
         database = FirebaseFirestore.getInstance();
     }
+
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
 //        binding.fabNewChat.setOnClickListener(v ->

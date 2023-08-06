@@ -71,6 +71,7 @@ public class ChatFragment extends Fragment implements ConversationListener {
         conversationsRecyclerView = rootView.findViewById(R.id.conversationsRecyclerView);
         progressBar = rootView.findViewById(R.id.progressBar);
         fabNewChat = rootView.findViewById(R.id.fabNewChat);
+
         init();
         setListeners();
         listenConversations();
