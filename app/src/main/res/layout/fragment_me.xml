@@ -1,138 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragement.MeFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardProfile"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="@dimen/_3sdp"
-        app:layout_constraintBottom_toTopOf="@id/smoothBottomBar">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/profileViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:src="@drawable/googlemapbackground"
+            android:paddingStart="@dimen/_50sdp"
+            android:paddingEnd="@dimen/_50sdp"
+            android:translationZ="90dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="fitXY"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp">
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/userProfileImage"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="@dimen/_8sdp"/>
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardElevation="@dimen/_1sdp"
+            app:layout_constraintTop_toBottomOf="@id/profileViewPager">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userProfileImage"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:layout_width="match_parent"
+                android:padding="@dimen/_8sdp">
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/userProfileImage"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/background_image"
+                    android:src="@drawable/profile"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_oval="true"/>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/chen"
-                    android:textColor="@color/primary_label"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/userProfileImage"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/chen"
+                        android:textColor="@color/primary_label"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/background_age"
+                        android:padding="@dimen/_3sdp"
+                        android:text="@string/_25"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp" />
+
+
+                    <!--                    <RatingBar-->
+                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_4sdp"-->
+                    <!--                        android:isIndicator="true"-->
+                    <!--                        android:numStars="5"-->
+                    <!--                        android:rating="4.5" />-->
+
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:text="@string/_25"
-                    android:textColor="@color/secondary_label"
-                    android:textSize="@dimen/_11ssp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:text="@string/helsinki"
-                    android:textColor="@color/secondary_label"
-                    android:textSize="@dimen/_11ssp"/>
-
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="4.5"/>
+                    android:text="@string/online_1h_ago"
+                    android:textColor="@color/secondary_label"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintStart_toEndOf="@+id/userProfileImage"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@color/favourite_background"
-                android:padding="@dimen/_5sdp"
-                android:src="@drawable/round_favorite"
-                app:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@color/favourite_background"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/round_favorite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/white" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:text="@string/profile"
-        android:textColor="@color/primary_label"
-        android:textSize="@dimen/_13ssp"
-        android:translationZ="90dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/cardProfile"
-        app:layout_constraintStart_toStartOf="parent"/>
+<!--        <TextView-->
+<!--            android:id="@+id/textProfile"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/_16sdp"-->
+<!--            android:layout_marginBottom="@dimen/_20sdp"-->
+<!--            android:text="@string/profile"-->
+<!--            android:textColor="@color/primary_label"-->
+<!--            android:textSize="@dimen/_13ssp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:translationZ="90dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/cardProfile"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
-    <TextView
-        android:id="@+id/textProfileViewAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:text="@string/view_all"
-        android:textColor="@color/secondary_label"
-        android:textSize="@dimen/_11ssp"
-        android:translationZ="90dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/textProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textProfile"/>
+<!--        <TextView-->
+<!--            android:id="@+id/textProfileViewAll"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="@dimen/_16sdp"-->
+<!--            android:text="@string/view_all"-->
+<!--            android:textColor="@color/secondary_label"-->
+<!--            android:textSize="@dimen/_11ssp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:translationZ="90dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/textProfile"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/textProfile" />-->
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/profileViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginBottom="@dimen/_24sdp"
-        android:paddingStart="@dimen/_50sdp"
-        android:paddingEnd="@dimen/_50sdp"
-        android:translationZ="90dp"
-        app:layout_constraintBottom_toTopOf="@+id/textProfile"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSearch"/>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

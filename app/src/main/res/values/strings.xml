@@ -30,6 +30,7 @@
     <string name="helsinki">Helsinki</string>
     <string name="profile">Profile</string>
     <string name="view_all">View all</string>
+    <string name="online_1h_ago">Online: 1h ago</string>
 
 
 </resources>
