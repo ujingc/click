@@ -31,4 +31,6 @@
     <color name="favourite_background">#FF7173</color>
     <color name="name_background">#F3489B</color>
 
+    <color name="background_light">#F8F8F8	</color>
+
 </resources>

@@ -3,6 +3,7 @@ package com.example.click_v1.fragement;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -10,6 +11,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -19,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.click_v1.R;
+import com.example.click_v1.activities.EditProfile;
+import com.example.click_v1.activities.SignInActivity;
 import com.example.click_v1.databinding.ActivitiesProfileBinding;
 import com.example.click_v1.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -36,6 +40,8 @@ public class MeFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private ActivitiesProfileBinding binding;
     private FirebaseFirestore database;
+
+    private AppCompatImageView editBtn;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     private TextView locationText;
@@ -56,12 +62,22 @@ public class MeFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_me, container, false);
         preferenceManager = new PreferenceManager(getApplicationContext());
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(rootView.getContext());
-        locationText = rootView.findViewById(R.id.location);
         init();
+        setListeners();
         return rootView;
     }
 
+    private void setListeners() {
+        editBtn.setOnClickListener(v -> editProfile());
+    }
+
+    private void editProfile() {
+        startActivity(new Intent(getApplicationContext(), EditProfile.class));
+    }
+
     private void init() {
+        locationText = rootView.findViewById(R.id.location);
+        editBtn = rootView.findViewById(R.id.editProfile);
 //        conversations = new ArrayList<>();
 //        conversationsAdapter = new RecentConversationAdapter(conversations, this);
 //        binding.conversationsRecyclerView.setAdapter(conversationsAdapter);

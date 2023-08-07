@@ -15,12 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_120sdp"
             android:layout_marginBottom="@dimen/_24sdp"
-            android:src="@drawable/googlemapbackground"
+            android:background="@drawable/googlemapbackground"
             android:paddingStart="@dimen/_50sdp"
             android:paddingEnd="@dimen/_50sdp"
             android:translationZ="90dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             />
 
         <androidx.cardview.widget.CardView
@@ -127,6 +128,17 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/editProfile"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_edit_24"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/secondary_label" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
