@@ -11,16 +11,10 @@ import android.view.View;
 import android.widget.Toast;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.click_v1.R;
 import com.example.click_v1.adapters.ProfileAdapter;
@@ -108,6 +102,7 @@ public class MainActivity extends BaseActivity {
                 replaceFragment(new ChatFragment());
                 break;
             case 1:
+                binding.textName.setText( "Find Partners");
                 replaceFragment(new MapFragment());
                 break;
             case 2:
