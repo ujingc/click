@@ -2,12 +2,10 @@ package com.example.click_v1.activities;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.View;
 import android.widget.Toast;
 
 
@@ -17,32 +15,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.click_v1.R;
-import com.example.click_v1.adapters.ProfileAdapter;
-import com.example.click_v1.adapters.RecentConversationAdapter;
 import com.example.click_v1.databinding.ActivityMainBinding;
 import com.example.click_v1.fragement.ChatFragment;
 import com.example.click_v1.fragement.MapFragment;
 import com.example.click_v1.fragement.MeFragment;
-import com.example.click_v1.listeners.ConversationListener;
-import com.example.click_v1.models.ChatMessage;
-import com.example.click_v1.models.Profile;
-import com.example.click_v1.models.User;
+
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class MainActivity extends BaseActivity {
@@ -50,11 +37,8 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
 
-    private List<ChatMessage> conversations;
-    private RecentConversationAdapter conversationsAdapter;
-    private FirebaseFirestore database;
-
     FusedLocationProviderClient fusedLocationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,22 +53,21 @@ public class MainActivity extends BaseActivity {
         setListeners();
         showToast("asking for permistion");
         ActivityCompat.requestPermissions(this,
-                new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA},
+                new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA},
                 225);
 //        listenConversations();
     }
 
 
-
     private void init() {
-        conversations = new ArrayList<>();
+//        conversations = new ArrayList<>();
 //        conversationsAdapter = new RecentConversationAdapter(conversations, this);
 //        binding.conversationsRecyclerView.setAdapter(conversationsAdapter);
-        database = FirebaseFirestore.getInstance();
+//        database = FirebaseFirestore.getInstance();
     }
 
     private void setListeners() {
@@ -102,7 +85,7 @@ public class MainActivity extends BaseActivity {
                 replaceFragment(new ChatFragment());
                 break;
             case 1:
-                binding.textName.setText( "Find Partners");
+                binding.textName.setText("Find Partners");
                 replaceFragment(new MapFragment());
                 break;
             case 2:
@@ -124,7 +107,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void loadUserDetails() {
-        binding.textName.setText(preferenceManager.getString(Constants.KEY_NAME));
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         binding.imageProfile.setImageBitmap(bitmap);

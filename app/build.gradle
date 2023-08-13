@@ -70,9 +70,13 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 
-    //Google map, location
+    // Google map, location
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // Google map utils
+    implementation 'com.google.maps.android:android-maps-utils:3.4.0'
+    implementation 'com.google.maps.android:maps-utils-ktx:3.4.0'
 
     // Smooth Bottom Bar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7'

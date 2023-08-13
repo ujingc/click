@@ -142,7 +142,6 @@ public class ChatFragment extends Fragment implements ConversationListener {
     private void setListeners() {
         fabNewChat.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
-
     }
 
     @Override
