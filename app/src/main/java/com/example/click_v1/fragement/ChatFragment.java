@@ -2,6 +2,7 @@ package com.example.click_v1.fragement;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.click_v1.R;
 import com.example.click_v1.activities.ChatActivity;
@@ -30,7 +30,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ChatFragment extends Fragment implements ConversationListener {
@@ -47,15 +46,6 @@ public class ChatFragment extends Fragment implements ConversationListener {
     private ProgressBar progressBar;
 
     private FloatingActionButton fabNewChat;
-
-    public ChatFragment() {
-        // Required empty public constructor
-    }
-
-    public static MeFragment newInstance(String param1, String param2) {
-        MeFragment fragment = new MeFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +84,7 @@ public class ChatFragment extends Fragment implements ConversationListener {
                 .addSnapshotListener(eventListener);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
         if (error != null) {
             return;
@@ -131,7 +122,7 @@ public class ChatFragment extends Fragment implements ConversationListener {
                     }
                 }
             }
-            Collections.sort(conversations, (obj1, obj2) -> obj2.dateObject.compareTo(obj1.dateObject));
+            conversations.sort((obj1, obj2) -> obj2.dateObject.compareTo(obj1.dateObject));
             conversationsAdapter.notifyDataSetChanged();
             conversationsRecyclerView.smoothScrollToPosition(0);
             conversationsRecyclerView.setVisibility(View.VISIBLE);
@@ -150,9 +141,4 @@ public class ChatFragment extends Fragment implements ConversationListener {
         intent.putExtra(Constants.KEY_USER, user);
         startActivity(intent);
     }
-
-    private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
 }

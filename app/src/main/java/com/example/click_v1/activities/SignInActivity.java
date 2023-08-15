@@ -108,6 +108,7 @@ public class SignInActivity extends AppCompatActivity {
             return true;
         }
     }
+
     private void loading(Boolean isLoading) {
         if (isLoading) {
             binding.buttonSignIn.setVisibility(View.INVISIBLE);

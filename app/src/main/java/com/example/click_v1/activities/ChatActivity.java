@@ -1,10 +1,10 @@
 package com.example.click_v1.activities;
 
+import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
+import static com.example.click_v1.utilities.Common.getReadableDateTime;
+
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,14 +30,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -53,15 +51,6 @@ public class ChatActivity extends BaseActivity {
     private List<ChatMessage> chatMessages;
     private String conversationId = null;
     private Boolean isReceiverAvailable = false;
-
-    private Bitmap getBitmapFromEncodedString(String encodedImage) {
-        if(encodedImage != null) {
-            byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        } else {
-            return null;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +95,7 @@ public class ChatActivity extends BaseActivity {
             addConversation(conversation);
         }
         // step 3 check if receiver is available before sending notification
-        if(!isReceiverAvailable) {
+        if (!isReceiverAvailable) {
             try {
                 JSONArray tokens = new JSONArray();
                 tokens.put(receiverUser.token);
@@ -123,15 +112,11 @@ public class ChatActivity extends BaseActivity {
                 body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
 
                 sendNotification(body.toString());
-            }   catch(Exception exception) {
+            } catch (Exception exception) {
 //                showToast(exception.getMessage());
             }
         }
         binding.inputMessage.setText(null);
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     // Notification step 2
@@ -144,12 +129,12 @@ public class ChatActivity extends BaseActivity {
         ).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     try {
-                        if(response.body() != null) {
+                        if (response.body() != null) {
                             JSONObject responseJson = new JSONObject(response.body());
                             JSONArray results = responseJson.getJSONArray("results");
-                            if(responseJson.getInt("failure") == 1) {
+                            if (responseJson.getInt("failure") == 1) {
                                 JSONObject error = (JSONObject) results.get(0);
 //                                showToast(error.getString("error"));
                                 return;
@@ -185,13 +170,13 @@ public class ChatActivity extends BaseActivity {
                     isReceiverAvailable = availability == 1;
                 }
                 receiverUser.token = value.getString(Constants.KEY_FCM_TOKEN);
-                if(receiverUser.image == null ) {
+                if (receiverUser.image == null) {
                     receiverUser.image = value.getString(Constants.KEY_IMAGE);
                     chatAdapter.setReceiverProfileImage(getBitmapFromEncodedString(receiverUser.image));
                     chatAdapter.notifyItemRangeInserted(0, chatMessages.size());
                 }
             }
-            if(isReceiverAvailable) {
+            if (isReceiverAvailable) {
                 binding.textAvailability.setVisibility(View.VISIBLE);
             } else {
                 binding.textAvailability.setVisibility(View.GONE);
@@ -228,7 +213,7 @@ public class ChatActivity extends BaseActivity {
                 }
             }
             // sort message by date and time
-            Collections.sort(chatMessages, Comparator.comparing(obj -> obj.dateObject));
+            chatMessages.sort(Comparator.comparing(obj -> obj.dateObject));
             if (count == 0) {
                 chatAdapter.notifyDataSetChanged();
             } else {
@@ -256,9 +241,6 @@ public class ChatActivity extends BaseActivity {
         binding.layoutSend.setOnClickListener(v -> sendMessage());
     }
 
-    private String getReadableDateTime(Date date) {
-        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
-    }
 
     private void addConversation(HashMap<String, Object> conversation) {
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).add(conversation).addOnSuccessListener(documentReference -> conversationId = documentReference.getId());

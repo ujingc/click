@@ -1,0 +1,113 @@
+package com.example.click_v1.adapters;
+
+import static com.example.click_v1.utilities.Common.getDateDiff;
+
+import android.os.CountDownTimer;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.click_v1.R;
+import com.example.click_v1.listeners.UserListener;
+import com.example.click_v1.models.MarkerActivity;
+import com.makeramen.roundedimageview.RoundedImageView;
+
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAdapter.MarkerActivityViewHolder> {
+
+    private final List<MarkerActivity> markerActivities;
+
+    private final UserListener userListener;
+
+
+    public MarkerActivityAdapter(List<MarkerActivity> markerActivities, UserListener userListener) {
+        this.markerActivities = markerActivities;
+        this.userListener = userListener;
+    }
+
+    @NonNull
+    @Override
+    public MarkerActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarkerActivityAdapter.MarkerActivityViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.item_container_marker_activity,
+                        parent,
+                        false
+                )
+        );
+    }
+
+    @Override
+    public void onBindViewHolder(@androidx.annotation.NonNull MarkerActivityViewHolder holder, int position) {
+        holder.setData(markerActivities.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return markerActivities.size();
+    }
+
+
+     class MarkerActivityViewHolder extends RecyclerView.ViewHolder {
+
+        private final CardView activityCardView;
+        private final LinearLayout sendBtn;
+        private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText;
+
+        private final RoundedImageView creatorImage;
+
+        public MarkerActivityViewHolder(View view) {
+            super(view);
+            activityCardView = view.findViewById(R.id.activityCardView);
+            sendBtn = view.findViewById(R.id.sendBtn);
+            topicText = view.findViewById(R.id.topicText);
+            titleText = view.findViewById(R.id.titleText);
+            descriptionText = view.findViewById(R.id.descriptionText);
+            hoursText = view.findViewById(R.id.hoursText);
+            minutesText = view.findViewById(R.id.minutesText);
+            secondsText = view.findViewById(R.id.secondsText);
+            creatorNameText = view.findViewById(R.id.creatorNameText);
+            creatorImage = view.findViewById(R.id.creatorImage);
+        }
+
+        void setData(MarkerActivity markerActivity) {
+            topicText.setText(markerActivity.topic);
+            titleText.setText(markerActivity.title);
+            descriptionText.setText(markerActivity.description);
+            creatorImage.setImageResource(markerActivity.imagePoster);
+            creatorNameText.setText(markerActivity.creatorName);
+            sendBtn.setOnClickListener(v-> userListener.onUserClick(markerActivity.user));
+            Date now = new Date();
+            Long difference = getDateDiff(markerActivity.dateTime, now, TimeUnit.MILLISECONDS);
+            downTimer(difference);
+        }
+        private void downTimer(Long millionSecond) {
+            new CountDownTimer(millionSecond, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    long second = (millisUntilFinished / 1000) % 60;
+                    long minutes = (millisUntilFinished / (1000 * 60)) % 60;
+                    long hours = (millisUntilFinished / (1000 * 60 * 60)) % 60;
+
+                    secondsText.setText(String.valueOf(second));
+                    minutesText.setText(String.valueOf(minutes));
+                    hoursText.setText(String.valueOf(hours));
+                }
+
+                @Override
+                public void onFinish() {
+                    activityCardView.setVisibility(View.GONE);
+                }
+            }.start();
+        }
+    }
+}
