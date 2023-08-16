@@ -1,5 +1,7 @@
 package com.example.click_v1.adapters;
 
+import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -62,16 +64,9 @@ public class  UsersAdapter extends  RecyclerView.Adapter<UsersAdapter.UserViewHo
              binding.textName.setText(user.name);
              binding.textEmail.setText(user.email);
              if(null != user.image) {
-                binding.imageProfile.setImageBitmap(getUserImage(user.image));
+                binding.imageProfile.setImageBitmap(getBitmapFromEncodedString(user.image));
              }
              binding.getRoot().setOnClickListener(v-> userListener.onUserClick(user));
         }
-    }
-
-    private Bitmap getUserImage( String encodedImage) {
-        // convert 64base image to bitmap
-        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-        // to convert to bitmap, require decoded bytes and BitFactory
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }

@@ -35,5 +35,6 @@
 
 <!--    activity design-->
     <color name="activity_background_light">#fffbfa</color>
+    <color name="icon_background_light_grey">#d3d3d3</color>
 
 </resources>

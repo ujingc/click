@@ -56,4 +56,19 @@ public class Constants {
         }
         return remoteMsgHeaders;
     }
+
+    public static final String KEY_LOCATION = "location";
+
+    public static final String KEY_LOCATION_ENABLE = "locationEnable";
+
+    public static final String KEY_HOBBIES = "hobbies";
+
+    public static final String KEY_SELF_INTRODUCTION = "selfIntroduction";
+
+    public static final String KEY_COUNTRY = "country";
+
+    public static final String KEY_BIRTHDAY = "birthday";
+
+    public static final String KEY_GENDER = "gender";
+
 }

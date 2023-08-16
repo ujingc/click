@@ -1,5 +1,6 @@
 package com.example.click_v1.fragement;
 
+import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 import android.Manifest;
@@ -12,24 +13,27 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.click_v1.R;
-import com.example.click_v1.activities.EditProfile;
-import com.example.click_v1.activities.SignInActivity;
-import com.example.click_v1.databinding.ActivitiesProfileBinding;
+import com.example.click_v1.activities.EditProfileActivity;
+import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.makeramen.roundedimageview.RoundedImageView;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -38,10 +42,12 @@ import java.util.Locale;
 public class MeFragment extends Fragment {
     private View rootView;
     private PreferenceManager preferenceManager;
-    private ActivitiesProfileBinding binding;
     private FirebaseFirestore database;
-
-    private AppCompatImageView editBtn;
+    private AppCompatImageView editProfileBtn;
+    private ConstraintLayout profileLayout;
+    private LinearLayout onlineStatusLayout;
+    private TextView nameText, ageText, currentLocationText;
+    private RoundedImageView meImage;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     private TextView locationText;
@@ -58,7 +64,6 @@ public class MeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_me, container, false);
         preferenceManager = new PreferenceManager(getApplicationContext());
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(rootView.getContext());
@@ -67,23 +72,34 @@ public class MeFragment extends Fragment {
         return rootView;
     }
 
-    private void setListeners() {
-        editBtn.setOnClickListener(v -> editProfile());
-    }
-
-    private void editProfile() {
-        startActivity(new Intent(getApplicationContext(), EditProfile.class));
-    }
-
     private void init() {
-        locationText = rootView.findViewById(R.id.location);
-        editBtn = rootView.findViewById(R.id.editProfile);
-//        conversations = new ArrayList<>();
-//        conversationsAdapter = new RecentConversationAdapter(conversations, this);
-//        binding.conversationsRecyclerView.setAdapter(conversationsAdapter);
+        meImage = rootView.findViewById(R.id.meImage);
+        nameText = rootView.findViewById(R.id.nameText);
+        ageText = rootView.findViewById(R.id.ageText);
+        locationText = rootView.findViewById(R.id.locationText);
+        editProfileBtn = rootView.findViewById(R.id.editProfile);
+        profileLayout = rootView.findViewById(R.id.profileLayout);
+        onlineStatusLayout = rootView.findViewById(R.id.onlineStatusLayout);
+        currentLocationText = rootView.findViewById(R.id.currentLocationText);
+
+        nameText.setText(preferenceManager.getString(Constants.KEY_NAME));
+        ageText.setText(preferenceManager.getString(Constants.KEY_BIRTHDAY));
+        locationText.setText(preferenceManager.getString(Constants.KEY_LOCATION));
+        meImage.setImageBitmap(getBitmapFromEncodedString(preferenceManager.getString(Constants.KEY_IMAGE)));
         database = FirebaseFirestore.getInstance();
 //        getLocation();
     }
+
+    private void setListeners() {
+        editProfileBtn.setOnClickListener(v -> editProfile());
+        profileLayout.setOnClickListener(v-> editProfile());
+    }
+
+    private void editProfile() {
+        startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+    }
+
+
 
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(rootView.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -102,7 +118,7 @@ public class MeFragment extends Fragment {
                             List<Address> addresses = geocoder.getFromLocation(
                                     location.getLatitude(), location.getLongitude(), 1
                             );
-                            locationText.setText(addresses.get(0).getLocality());
+                            currentLocationText.setText(addresses.get(0).getLocality());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

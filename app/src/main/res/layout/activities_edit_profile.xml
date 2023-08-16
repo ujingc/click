@@ -56,7 +56,7 @@
 
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/userProfileImage"
+                    android:id="@+id/meImage"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_80sdp"
                     android:background="@drawable/background_image"
@@ -75,20 +75,21 @@
                     android:padding="@dimen/_8sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/userProfileImage"
+                    app:layout_constraintStart_toEndOf="@id/meImage"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/profileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@string/chen"
                         android:textColor="@color/primary_label"
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/profileAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -114,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toEndOf="@+id/userProfileImage"
+                    app:layout_constraintStart_toEndOf="@+id/meImage"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                     <TextView
@@ -127,7 +128,7 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <TextView
-                        android:id="@+id/location"
+                        android:id="@+id/currentLocationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -165,11 +166,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/_150sdp"
                 android:clickable="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
@@ -218,21 +222,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/selfIntroduction"
+                android:id="@+id/selfIntroductionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/_150sdp"
                 android:clickable="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editDescriptionIcon"
+                app:layout_constraintEnd_toStartOf="@+id/editIntroductionIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/editDescriptionIcon"
+                android:id="@+id/editIntroductionIcon"
                 android:layout_width="@dimen/_17sdp"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
@@ -273,12 +279,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/country"
+                android:id="@+id/countryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/_150sdp"
                 android:clickable="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
@@ -302,7 +310,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/birthdateLayout"
+            android:id="@+id/birthdayLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/textline"
@@ -317,7 +325,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:clickable="true"
                 android:padding="@dimen/_10sdp"
-                android:text="Bitrhdate"
+                android:text="Bitrhday"
                 android:textColor="@color/primary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
@@ -326,21 +334,20 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/birthdate"
+                android:id="@+id/birthdayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editBirthdateIcon"
+                app:layout_constraintEnd_toStartOf="@+id/editBirthdayIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/editBirthdateIcon"
+                android:id="@+id/editBirthdayIcon"
                 android:layout_width="@dimen/_17sdp"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
@@ -356,14 +363,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cityLayout"
+            android:id="@+id/locationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/textline"
             android:clickable="true"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/birthdateLayout">
+            app:layout_constraintTop_toBottomOf="@id/birthdayLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -371,7 +378,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:clickable="true"
                 android:padding="@dimen/_10sdp"
-                android:text="City"
+                android:text="Location"
                 android:textColor="@color/primary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
@@ -380,21 +387,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/city"
+                android:id="@+id/locationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/_150sdp"
                 android:clickable="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editCityIcon"
+                app:layout_constraintEnd_toStartOf="@+id/editLocationIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/editCityIcon"
+                android:id="@+id/editLocationIcon"
                 android:layout_width="@dimen/_17sdp"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
@@ -417,7 +426,7 @@
             android:clickable="true"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cityLayout">
+            app:layout_constraintTop_toBottomOf="@id/locationLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -434,12 +443,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/gender"
+                android:id="@+id/genderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
@@ -464,7 +472,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/interestLayout"
+            android:id="@+id/hobbiesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/textline"
@@ -479,7 +487,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:clickable="true"
                 android:padding="@dimen/_10sdp"
-                android:text="Interest"
+                android:text="Hobbies"
                 android:textColor="@color/primary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
@@ -488,21 +496,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/interest"
+                android:id="@+id/hobbiesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/_150sdp"
                 android:clickable="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/chen"
                 android:textColor="@color/secondary_label"
                 android:textSize="@dimen/_13ssp"
                 android:translationZ="90dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editInterestIcon"
+                app:layout_constraintEnd_toStartOf="@+id/editHobbiesIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/editInterestIcon"
+                android:id="@+id/editHobbiesIcon"
                 android:layout_width="@dimen/_17sdp"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
