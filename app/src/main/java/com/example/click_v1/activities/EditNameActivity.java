@@ -63,6 +63,7 @@ public class EditNameActivity extends AppCompatActivity {
                         Toast.makeText(EditNameActivity.this, "ok", Toast.LENGTH_SHORT).show();
                         new CountDownTimer(500, 500) {
                             public void onTick(long millisUntilFinished) {
+
                             }
 
                             public void onFinish() {

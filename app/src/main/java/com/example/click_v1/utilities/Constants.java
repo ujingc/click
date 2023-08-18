@@ -71,4 +71,9 @@ public class Constants {
 
     public static final String KEY_GENDER = "gender";
 
+    public static final String KEY_SECONDS = "seconds";
+
+    public static final String KEY_MINUTES = "minutes";
+
+    public static final String KEY_HOURS = "hours";
 }

@@ -1,5 +1,6 @@
 package com.example.click_v1.adapters;
 
+import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
 import static com.example.click_v1.utilities.Common.getDateDiff;
 
 import android.os.CountDownTimer;
@@ -20,6 +21,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAdapter.MarkerActivityViewHolder> {
@@ -28,10 +30,12 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
     private final UserListener userListener;
 
+    private final String senderId;
 
-    public MarkerActivityAdapter(List<MarkerActivity> markerActivities, UserListener userListener) {
+    public MarkerActivityAdapter(List<MarkerActivity> markerActivities, UserListener userListener, String senderId) {
         this.markerActivities = markerActivities;
         this.userListener = userListener;
+        this.senderId = senderId;
     }
 
     @NonNull
@@ -57,13 +61,17 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
     }
 
 
-     class MarkerActivityViewHolder extends RecyclerView.ViewHolder {
+    class MarkerActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final CardView activityCardView;
         private final LinearLayout sendBtn;
         private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText;
 
         private final RoundedImageView creatorImage;
+
+        private CountDownTimer localTimer;
+
+        private Long countDownLeftTime;
 
         public MarkerActivityViewHolder(View view) {
             super(view);
@@ -80,24 +88,32 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
         }
 
         void setData(MarkerActivity markerActivity) {
+            if (localTimer != null) {
+                localTimer.cancel();
+            }
+            Date now = new Date();
+            countDownLeftTime = getDateDiff(markerActivity.dateTime, now, TimeUnit.MILLISECONDS);
+            localTimer = getDownTimer(countDownLeftTime);
+            localTimer.start();
+
             topicText.setText(markerActivity.topic);
             titleText.setText(markerActivity.title);
             descriptionText.setText(markerActivity.description);
-            creatorImage.setImageResource(markerActivity.imagePoster);
+            creatorImage.setImageBitmap(getBitmapFromEncodedString(markerActivity.user.image));
             creatorNameText.setText(markerActivity.creatorName);
-            sendBtn.setOnClickListener(v-> userListener.onUserClick(markerActivity.user));
-            Date now = new Date();
-            Long difference = getDateDiff(markerActivity.dateTime, now, TimeUnit.MILLISECONDS);
-            downTimer(difference);
+            if (!Objects.equals(senderId, markerActivity.user.id)) {
+                sendBtn.setVisibility(View.VISIBLE);
+                sendBtn.setOnClickListener(v -> userListener.onUserClick(markerActivity.user));
+            }
         }
-        private void downTimer(Long millionSecond) {
-            new CountDownTimer(millionSecond, 1000) {
+
+        private CountDownTimer getDownTimer(Long millionSecond) {
+            return new CountDownTimer(millionSecond, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     long second = (millisUntilFinished / 1000) % 60;
                     long minutes = (millisUntilFinished / (1000 * 60)) % 60;
                     long hours = (millisUntilFinished / (1000 * 60 * 60)) % 60;
-
                     secondsText.setText(String.valueOf(second));
                     minutesText.setText(String.valueOf(minutes));
                     hoursText.setText(String.valueOf(hours));
@@ -107,7 +123,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
                 public void onFinish() {
                     activityCardView.setVisibility(View.GONE);
                 }
-            }.start();
+            };
         }
     }
 }

@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class MarkerActivity {
     public String creatorId, id, topic, title, description, creatorName;
-    public int imagePoster, lat, lng;
+    public double lat, lng;
     public Date dateTime;
 
     public User user;
 
-    public MarkerActivity(String creatorId, String id, String topic, String title, String description, int lat, int lng, Date dateTime, User user) {
+    public MarkerActivity(String creatorId, String id, String topic, String title, String description, double lat, double lng, Date dateTime, User user) {
         this.creatorId = creatorId;
         this.id = id;
         this.topic = topic;
@@ -41,11 +41,11 @@ public class MarkerActivity {
         return description;
     }
 
-    public int getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public int getLng() {
+    public double getLng() {
         return lng;
     }
 
@@ -53,7 +53,7 @@ public class MarkerActivity {
         return dateTime;
     }
 
-    public User getUer() {
+    public User getUser() {
         return user;
     }
 
