@@ -76,4 +76,24 @@ public class Constants {
     public static final String KEY_MINUTES = "minutes";
 
     public static final String KEY_HOURS = "hours";
+
+    public static final String KEY_COLLECTION_ACTIVITY = "activity";
+
+    public static final String KEY_CREATOR_ID = "creatorId";
+
+    public static final String KEY_CREATOR_NAME = "creatorName";
+
+    public static final String KEY_CREATOR_IMAGE = "creatorImage";
+
+    public static final String KEY_ID = "id";
+
+    public static final String KEY_TOPIC = "topic";
+
+    public static final String KEY_TITLE = "title";
+
+    public static final String KEY_DESCRIPTION = "description";
+
+    public static final String KEY_LAT = "lat";
+
+    public static final String KEY_LNG = "lng";
 }

@@ -81,5 +81,9 @@ dependencies {
     // Smooth Bottom Bar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7'
 
-
+    // Stripe payment
+    implementation 'com.stripe:stripe-android:20.28.3'
+    implementation 'com.stripe:stripe-java:latest.release'
+    implementation "com.androidx.volley:volley:latest.release"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
 }

@@ -1,4 +1,4 @@
-package com.example.click_v1.fragement;
+package com.example.click_v1.googleMapUtils;
 
 import android.content.Context;
 
