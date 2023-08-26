@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,7 +68,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
         private final CardView activityCardView;
         private final LinearLayout sendBtn;
         private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText, sendBtnText;
-
+        private AppCompatImageView sendStarBtn;
         private final RoundedImageView creatorImage;
 
         private CountDownTimer localTimer;
@@ -87,6 +88,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
             sendBtnText = view.findViewById(R.id.sendBtnText);
             creatorNameText = view.findViewById(R.id.creatorNameText);
             creatorImage = view.findViewById(R.id.creatorImage);
+            sendStarBtn = view.findViewById(R.id.sendStarBtn);
         }
 
         void setData(MarkerActivity markerActivity) {

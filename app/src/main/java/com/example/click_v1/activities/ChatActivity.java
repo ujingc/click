@@ -4,12 +4,14 @@ import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
 import static com.example.click_v1.utilities.Common.getReadableDateTime;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.click_v1.R;
 import com.example.click_v1.adapters.ChatAdapter;
 import com.example.click_v1.databinding.ActivityChatBinding;
 import com.example.click_v1.models.ChatMessage;
@@ -31,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -112,8 +113,7 @@ public class ChatActivity extends BaseActivity {
                 body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
 
                 sendNotification(body.toString());
-            } catch (Exception exception) {
-//                showToast(exception.getMessage());
+            } catch (Exception ignored) {
             }
         }
         binding.inputMessage.setText(null);
@@ -121,12 +121,7 @@ public class ChatActivity extends BaseActivity {
 
     // Notification step 2
     private void sendNotification(String messageBody) {
-//        showToast("Notification is sending");
-        // use retrofit api client to send a message to https://fcm.googleapis.com/fcm/
-        ApiClient.getClient().create(ApiService.class).sendMessage(
-                Constants.getRemoteMsgHeaders(),
-                messageBody
-        ).enqueue(new Callback<String>() {
+        ApiClient.getClient().create(ApiService.class).sendMessage(Constants.getRemoteMsgHeaders(), messageBody).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful()) {
@@ -136,37 +131,29 @@ public class ChatActivity extends BaseActivity {
                             JSONArray results = responseJson.getJSONArray("results");
                             if (responseJson.getInt("failure") == 1) {
                                 JSONObject error = (JSONObject) results.get(0);
-//                                showToast(error.getString("error"));
-                                return;
+                                Toast.makeText(ChatActivity.this, "error: " + error, Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                    showToast("Notification sent successfully");
-                } else {
-//                    showToast("Error"+ response.code());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-//                showToast(t.getMessage());
             }
         });
     }
 
     private void listenAvailabilityOfReceiver() {
-        database.collection(Constants.KEY_COLLECTION_USERS).document(
-                receiverUser.id
-        ).addSnapshotListener(ChatActivity.this, (value, error) -> {
+        database.collection(Constants.KEY_COLLECTION_USERS).document(receiverUser.id).addSnapshotListener(ChatActivity.this, (value, error) -> {
             if (error != null) {
                 return;
             }
             if (value != null) {
                 if (value.getLong(Constants.KEY_AVAILABILITY) != null) {
-                    int availability = Objects.requireNonNull(value.getLong(Constants.KEY_AVAILABILITY)
-                    ).intValue();
+                    int availability = Objects.requireNonNull(value.getLong(Constants.KEY_AVAILABILITY)).intValue();
                     isReceiverAvailable = availability == 1;
                 }
                 receiverUser.token = value.getString(Constants.KEY_FCM_TOKEN);
@@ -189,6 +176,7 @@ public class ChatActivity extends BaseActivity {
 
         database.collection(Constants.KEY_COLLECTION_CHAT).whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id).whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).addSnapshotListener(eventListener);
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
@@ -234,13 +222,62 @@ public class ChatActivity extends BaseActivity {
     private void loadReceiverDetails() {
         receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
         binding.textName.setText(receiverUser.name);
+        binding.receiverNameText.setText(receiverUser.name);
+        binding.receiverImage.setImageBitmap(getBitmapFromEncodedString(receiverUser.image));
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void setListeners() {
         binding.imageBack.setOnClickListener(v -> onBackPressed());
         binding.layoutSend.setOnClickListener(v -> sendMessage());
+        binding.sendStarBtn.setOnClickListener(v -> {
+            if (binding.buyStarLayout.getVisibility() == View.VISIBLE) {
+                binding.buyStarLayout.setVisibility(View.GONE);
+            } else {
+                binding.buyStarLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        binding.buyNowBtn.setOnClickListener(v -> {
+            int selectedId = binding.radioGroup.getCheckedRadioButtonId();
+            if (selectedId >= 1) {
+                Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                intent.putExtra(Constants.KEY_RECEIVER, receiverUser);
+                int stars;
+                switch (selectedId) {
+                    case R.id.radioOption1:
+                        stars = 50;
+                        intent.putExtra(Constants.KEY_STARS, stars);
+                        break;
+                    case R.id.radioOption2:
+                        stars = 100;
+                        intent.putExtra(Constants.KEY_STARS, stars);
+                        break;
+                    case R.id.radioOption3:
+                        stars = 200;
+                        intent.putExtra(Constants.KEY_STARS, stars);
+                        break;
+                }
+                startActivity(intent);
+                binding.buyStarLayout.setVisibility(View.GONE);
+            }
+        });
+        binding.radioOption1.setOnClickListener(this::onRadioButtonClicked);
+        binding.radioOption2.setOnClickListener(this::onRadioButtonClicked);
+        binding.radioOption3.setOnClickListener(this::onRadioButtonClicked);
+        binding.radioOption4.setOnClickListener(this::onRadioButtonClicked);
     }
 
+    @SuppressLint("NonConstantResourceId")
+    private void onRadioButtonClicked(View view) {
+        binding.radioOption1.getId();
+        switch (view.getId()) {
+            case R.id.radioOption1:
+            case R.id.radioOption2:
+            case R.id.radioOption3:
+            case R.id.radioOption4:
+                break;
+        }
+    }
 
     private void addConversation(HashMap<String, Object> conversation) {
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).add(conversation).addOnSuccessListener(documentReference -> conversationId = documentReference.getId());

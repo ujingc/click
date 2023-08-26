@@ -253,7 +253,6 @@ public class EditHobbiesActivity extends AppCompatActivity {
                         new CountDownTimer(500, 500) {
                             public void onTick(long millisUntilFinished) {
                             }
-
                             public void onFinish() {
                                 Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -24,6 +24,8 @@ public class Constants {
 
     public static final String KEY_SENDER_NAME = "senderName";
 
+    public static final String KEY_RECEIVER = "receiver";
+
     public static final String KEY_RECEIVER_NAME = "receiverName";
 
     public static final String KEY_SENDER_IAMGE = "senderImage";
@@ -96,4 +98,6 @@ public class Constants {
     public static final String KEY_LAT = "lat";
 
     public static final String KEY_LNG = "lng";
+
+    public static final String KEY_STARS = "stars";
 }

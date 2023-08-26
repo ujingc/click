@@ -31,6 +31,15 @@
     <string name="profile">Profile</string>
     <string name="view_all">View all</string>
     <string name="online_1h_ago">Online: 1h ago</string>
+    <string name="stripe_customer_api">https://api.stripe.com/v1/customers</string>
+    <string name="stripe_ephemeral_api">https://api.stripe.com/v1/ephemeral_keys</string>
+    <string name="stripe_payment_intent_api">https://api.stripe.com/v1/payment_intents</string>
 
+    String publishableKey;
+
+    String secretKey;
+    String CustomerId;
+    String ephericalKey;
+    String clientSecret;
 
 </resources>
