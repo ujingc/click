@@ -58,28 +58,34 @@ public class CheckoutActivity extends AppCompatActivity {
             case 50:
                 binding.productTitleText.setText(stars+"颗星");
                 binding.productItemText.setText(stars+"颗星");
-                binding.productPriceText.setText("USD$" + 4.99);
-                binding.productSubtotalPriceText.setText("USD$" + 4.99);
-                binding.productTotalPriceText.setText("USD$" + 4.99);
-                binding.payNowPriceText.setText("USD$" + 4.99);
+                binding.productPriceText.setText("USD$" + 39.9);
+                binding.productSubtotalPriceText.setText("USD$" + 39.9);
+                binding.productTotalPriceText.setText("USD$" + 39.9);
+                binding.payNowPriceText.setText("USD$" + 39.9);
                 break;
             case 100:
                 binding.productTitleText.setText(stars+"颗星");
                 binding.productItemText.setText(stars+"颗星");
-                binding.productPriceText.setText("USD$" + 9.99);
-                binding.productSubtotalPriceText.setText("USD$" + 9.99);
-                binding.productTotalPriceText.setText("USD$" + 9.99);
-                binding.payNowPriceText.setText("USD$" + 9.99);
+                binding.productPriceText.setText("USD$" + 89.99);
+                binding.productSubtotalPriceText.setText("USD$" + 89.99);
+                binding.productTotalPriceText.setText("USD$" + 89.99);
+                binding.payNowPriceText.setText("USD$" + 89.99);
                 break;
             case 200:
                 binding.productTitleText.setText(stars+"颗星");
                 binding.productItemText.setText(stars+"颗星");
-                binding.productPriceText.setText("USD$" + 19.99);
-                binding.productSubtotalPriceText.setText("USD$" + 19.99);
-                binding.productTotalPriceText.setText("USD$" + 19.99);
-                binding.payNowPriceText.setText("USD$" + 19.99);
+                binding.productPriceText.setText("USD$" + 189.99);
+                binding.productSubtotalPriceText.setText("USD$" + 189.99);
+                binding.productTotalPriceText.setText("USD$" + 189.99);
+                binding.payNowPriceText.setText("USD$" + 189.99);
                 break;
             default:
+                binding.productTitleText.setText(stars+"颗星");
+                binding.productItemText.setText(stars+"颗星");
+                binding.productPriceText.setText("USD$" + stars);
+                binding.productSubtotalPriceText.setText("USD$" + stars);
+                binding.productTotalPriceText.setText("USD$" + stars);
+                binding.payNowPriceText.setText("USD$" + stars);
                 break;
         }
     }
@@ -179,13 +185,16 @@ public class CheckoutActivity extends AppCompatActivity {
                 params.put("currency", "usd");
                 switch (stars) {
                     case 50:
-                        params.put("amount", "0499");
+                        params.put("amount", "03999");
                         break;
                     case 100:
-                        params.put("amount", "0999");
+                        params.put("amount", "08999");
                         break;
                     case 200:
-                        params.put("amount", "1999");
+                        params.put("amount", "18999");
+                        break;
+                    default:
+                        params.put("amount", stars+"00");
                         break;
                 }
                 params.put("automatic_payment_methods[enabled]", "true");

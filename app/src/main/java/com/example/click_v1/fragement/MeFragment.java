@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.click_v1.R;
 import com.example.click_v1.activities.EditProfileActivity;
+import com.example.click_v1.activities.SettingsActivity;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -43,7 +44,7 @@ public class MeFragment extends Fragment {
     private View rootView;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
-    private AppCompatImageView editProfileBtn;
+    private AppCompatImageView editProfileBtn, editSettingsBtn;
     private ConstraintLayout profileLayout;
     private LinearLayout onlineStatusLayout;
     private TextView nameText, ageText, currentLocationText;
@@ -78,6 +79,7 @@ public class MeFragment extends Fragment {
         ageText = rootView.findViewById(R.id.ageText);
         locationText = rootView.findViewById(R.id.locationText);
         editProfileBtn = rootView.findViewById(R.id.editProfile);
+        editSettingsBtn = rootView.findViewById(R.id.editSettings);
         profileLayout = rootView.findViewById(R.id.profileLayout);
         onlineStatusLayout = rootView.findViewById(R.id.onlineStatusLayout);
         currentLocationText = rootView.findViewById(R.id.currentLocationText);
@@ -93,10 +95,15 @@ public class MeFragment extends Fragment {
     private void setListeners() {
         editProfileBtn.setOnClickListener(v -> editProfile());
         profileLayout.setOnClickListener(v-> editProfile());
+        editSettingsBtn.setOnClickListener(v-> editSettings());
     }
 
     private void editProfile() {
         startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+    }
+
+    private void editSettings() {
+        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
     }
 
 

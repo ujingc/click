@@ -6,6 +6,9 @@ import static com.example.click_v1.utilities.Common.getReadableDateTime;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.example.click_v1.models.User;
 import com.example.click_v1.network.ApiClient;
 import com.example.click_v1.network.ApiService;
 import com.example.click_v1.utilities.Constants;
+import com.example.click_v1.utilities.InputFilterMinMax;
 import com.example.click_v1.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
@@ -52,6 +56,7 @@ public class ChatActivity extends BaseActivity {
     private List<ChatMessage> chatMessages;
     private String conversationId = null;
     private Boolean isReceiverAvailable = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +178,6 @@ public class ChatActivity extends BaseActivity {
 
     private void listenMessages() {
         database.collection(Constants.KEY_COLLECTION_CHAT).whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.id).addSnapshotListener(eventListener);
-
         database.collection(Constants.KEY_COLLECTION_CHAT).whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id).whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).addSnapshotListener(eventListener);
     }
 
@@ -247,18 +251,36 @@ public class ChatActivity extends BaseActivity {
                     case R.id.radioOption1:
                         stars = 50;
                         intent.putExtra(Constants.KEY_STARS, stars);
+                        binding.customStarsInput.setVisibility(View.GONE);
+                        startActivity(intent);
+                        binding.buyStarLayout.setVisibility(View.GONE);
                         break;
                     case R.id.radioOption2:
                         stars = 100;
                         intent.putExtra(Constants.KEY_STARS, stars);
+                        binding.customStarsInput.setVisibility(View.GONE);
+                        startActivity(intent);
+                        binding.buyStarLayout.setVisibility(View.GONE);
                         break;
                     case R.id.radioOption3:
                         stars = 200;
                         intent.putExtra(Constants.KEY_STARS, stars);
+                        binding.customStarsInput.setVisibility(View.GONE);
+                        startActivity(intent);
+                        binding.buyStarLayout.setVisibility(View.GONE);
+                        break;
+                    case R.id.radioOption4:
+                        stars = Integer.parseInt(binding.customStarsInput.getText().toString());
+                        if(stars >= 10) {
+                            intent.putExtra(Constants.KEY_STARS, stars);
+                            binding.customStarsInput.setVisibility(View.GONE);
+                            startActivity(intent);
+                            binding.buyStarLayout.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(this, "You have to gift at least 10 stars", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                 }
-                startActivity(intent);
-                binding.buyStarLayout.setVisibility(View.GONE);
             }
         });
         binding.radioOption1.setOnClickListener(this::onRadioButtonClicked);
@@ -274,7 +296,11 @@ public class ChatActivity extends BaseActivity {
             case R.id.radioOption1:
             case R.id.radioOption2:
             case R.id.radioOption3:
+                break;
             case R.id.radioOption4:
+                binding.customStarsInput.setVisibility(View.VISIBLE);
+                binding.customStarsInput.setText("");
+                binding.customStarsInput.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "5000")});
                 break;
         }
     }

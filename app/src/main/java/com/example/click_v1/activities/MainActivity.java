@@ -89,8 +89,6 @@ public class MainActivity extends BaseActivity {
                 replaceFragment(new MapFragment());
                 break;
             case 2:
-                startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
-                finish();
                 break;
             case 3:
                 replaceFragment(new MeFragment());

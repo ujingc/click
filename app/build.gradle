@@ -82,6 +82,7 @@ dependencies {
     // Smooth Bottom Bar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7'
 
+<<<<<<< HEAD
     // Stripe payment
     implementation 'com.stripe:stripe-android:20.28.3'
     implementation 'com.stripe:stripe-java:latest.release'
@@ -96,4 +97,7 @@ dependencies {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
+=======
+
+>>>>>>> parent of 874ffeb... CLICK-0031 Add and update marker activity
 }
