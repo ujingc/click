@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -66,13 +67,11 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
         private final CardView activityCardView;
         private final LinearLayout sendBtn;
-<<<<<<< HEAD
-        private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText, sendBtnText;
-        private AppCompatImageView sendStarBtn;
-=======
+
         private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText;
 
->>>>>>> parent of 874ffeb... CLICK-0031 Add and update marker activity
+        private AppCompatImageView sendStarBtn;
+
         private final RoundedImageView creatorImage;
 
         private CountDownTimer localTimer;

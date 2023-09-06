@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.click_v1.R;
 import com.example.click_v1.activities.ChatActivity;
@@ -50,9 +49,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, UserListener {
@@ -236,6 +233,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         clusterManager.setOnClusterItemClickListener(item -> {
             String itemId = item.getId();
             showSelectedMarkerCardView(itemId);
+//            Toast.makeText(getApplicationContext(), "hide", Toast.LENGTH_SHORT).show();
+//            marker.hideInfoWindow();
             return false;
         });
 
@@ -252,12 +251,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
 //                return null;
 //            }
 //        });
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                marker.hideInfoWindow();
-            }
-        });
     }
 
     private void addItems() {
@@ -269,9 +262,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
 
             imageView.setImageBitmap(getBitmapFromEncodedString(markerActivity.user.image));
             markerText.setText(markerActivity.title);
-            Toast.makeText(getContext(), "markerActivity.user.image", Toast.LENGTH_SHORT).show();
-            MapClusterItem offsetItem = new MapClusterItem(markerActivity.lat, markerActivity.lng, "Title " + markerActivity.id, "Snippet " + markerActivity.id, markerActivity.id, getBitmapDescriptorFromView(markerView));
-            clusterManager.setRenderer(new OwnIconRendered(getApplicationContext(), mMap, clusterManager));
+            MapClusterItem offsetItem = new MapClusterItem(markerActivity.lat, markerActivity.lng, markerActivity.id, getBitmapDescriptorFromView(markerView));
+            clusterManager.setRenderer(new CustomRendered(getApplicationContext(), mMap, clusterManager));
             clusterManager.addItem(offsetItem);
         }
     }
@@ -286,7 +278,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
 //                secondsText.setText(String.valueOf(second));
 //                minutesText.setText(String.valueOf(minutes));
 //                hoursText.setText(String.valueOf(hours));
-                Toast.makeText(getContext(), "here"+second, Toast.LENGTH_SHORT).show();
                 markerTimeLeftText.setText(String.valueOf(second));
             }
 

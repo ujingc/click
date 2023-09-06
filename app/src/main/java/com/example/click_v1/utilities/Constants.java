@@ -78,7 +78,6 @@ public class Constants {
     public static final String KEY_MINUTES = "minutes";
 
     public static final String KEY_HOURS = "hours";
-<<<<<<< HEAD
 
     public static final String KEY_COLLECTION_ACTIVITY = "activity";
 
@@ -103,6 +102,5 @@ public class Constants {
     public static final String KEY_STARS = "stars";
 
     public static final String KEY_DISTANCE = "distance";
-=======
->>>>>>> parent of 874ffeb... CLICK-0031 Add and update marker activity
+
 }

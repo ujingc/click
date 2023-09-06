@@ -10,16 +10,16 @@ import com.google.maps.android.clustering.ClusterItem;
 public class MapClusterItem implements ClusterItem {
     // represent a marker on the map
     private final LatLng position;
-    private final String title;
-    private final String snippet;
+//    private final String title;
+//    private final String snippet;
 
     private final String id;
     private final BitmapDescriptor icon;
 
-    public MapClusterItem(double lat, double lng, String title, String snippet, String id, BitmapDescriptor icon) {
+    public MapClusterItem(double lat, double lng, String id, BitmapDescriptor icon) {
         position = new LatLng(lat, lng);
-        this.title = title;
-        this.snippet = snippet;
+//        this.title = title;
+//        this.snippet = snippet;
         this.id = id;
         this.icon = icon;
     }
@@ -30,15 +30,27 @@ public class MapClusterItem implements ClusterItem {
         return position;
     }
 
+    @Nullable
     @Override
     public String getTitle() {
-        return title;
+        return null;
     }
 
+    @Nullable
     @Override
     public String getSnippet() {
-        return snippet;
+        return null;
     }
+
+//    @Override
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    @Override
+//    public String getSnippet() {
+//        return snippet;
+//    }
 
     @Nullable
     @Override
