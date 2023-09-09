@@ -1,6 +1,5 @@
 package com.example.click_v1.fragement;
 
-import static com.example.click_v1.utilities.Common.distance;
 import static com.example.click_v1.utilities.Common.getBitmapDescriptorFromView;
 import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
 import static com.example.click_v1.utilities.Common.getDateDiff;
@@ -14,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,7 +86,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_map, container, false);
-        markerView = inflater.inflate(R.layout.marker_layout, container, false);
+        markerView = inflater.inflate(R.layout.custom_marker, container, false);
         database = FirebaseFirestore.getInstance();
         init();
         setListeners();

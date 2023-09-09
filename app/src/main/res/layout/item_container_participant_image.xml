@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--activity participant icon-->
+<com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/imagePoster"
+    android:layout_width="@dimen/_30sdp"
+    android:layout_height="@dimen/_30sdp"
+    android:clickable="true"
+    android:scaleType="centerCrop"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:cardElevation="@dimen/_3sdp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:riv_oval="true"
+    tools:src="@drawable/profile" />

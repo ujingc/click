@@ -40,6 +40,18 @@
     <string name="ago">ago</string>
     <string name="my_profile">My profile</string>
     <string name="profile_background_image">Profile background image</string>
+    <string name="send_a_message">Send a message</string>
+    <string name="card_description">Use one team lunch each month for a \'Lunch and Learn\' session. Have one team member give a presentation about a topic of interest to the group, your company or himself. Nothing like walking away from lunch with newfound knowledge. Welcome to chat and find out more</string>
+    <string name="live_until">Live until</string>
+    <string name="colon">:</string>
+    <string name="_28">28</string>
+    <string name="_48">48</string>
+    <string name="_10">10</string>
+    <string name="activity_type">聚餐活动</string>
+    <string name="activity_name">一起去吃饭</string>
+    <string name="i_am_here">I am here!</string>
+    <string name="_10h">10h</string>
+    <string name="custom_marker_icon">custom marker icon</string>
 
     String publishableKey;
 

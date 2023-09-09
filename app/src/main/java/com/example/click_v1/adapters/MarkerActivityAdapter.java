@@ -45,7 +45,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
     public MarkerActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MarkerActivityAdapter.MarkerActivityViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.item_container_marker_activity,
+                        R.layout.item_container_selected_activity,
                         parent,
                         false
                 )
