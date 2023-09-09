@@ -45,7 +45,7 @@ public class MeFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
     private AppCompatImageView editProfileBtn, editSettingsBtn;
-    private ConstraintLayout profileLayout;
+    private ConstraintLayout profileCard;
     private LinearLayout onlineStatusLayout;
     private TextView nameText, ageText, currentLocationText;
     private RoundedImageView meImage;
@@ -80,7 +80,7 @@ public class MeFragment extends Fragment {
         locationText = rootView.findViewById(R.id.locationText);
         editProfileBtn = rootView.findViewById(R.id.editProfile);
         editSettingsBtn = rootView.findViewById(R.id.editSettings);
-        profileLayout = rootView.findViewById(R.id.profileLayout);
+        profileCard = rootView.findViewById(R.id.profileCard);
         onlineStatusLayout = rootView.findViewById(R.id.onlineStatusLayout);
         currentLocationText = rootView.findViewById(R.id.currentLocationText);
 
@@ -94,7 +94,7 @@ public class MeFragment extends Fragment {
 
     private void setListeners() {
         editProfileBtn.setOnClickListener(v -> editProfile());
-        profileLayout.setOnClickListener(v-> editProfile());
+        profileCard.setOnClickListener(v-> editProfile());
         editSettingsBtn.setOnClickListener(v-> editSettings());
     }
 

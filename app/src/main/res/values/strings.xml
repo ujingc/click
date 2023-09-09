@@ -34,6 +34,12 @@
     <string name="stripe_customer_api">https://api.stripe.com/v1/customers</string>
     <string name="stripe_ephemeral_api">https://api.stripe.com/v1/ephemeral_keys</string>
     <string name="stripe_payment_intent_api">https://api.stripe.com/v1/payment_intents</string>
+    <string name="there_are_4_activities_in_sydney_find_out_more">There are 4 activities in Sydney. Find out more!</string>
+    <string name="explore_now">Explore now</string>
+    <string name="_1h">1h</string>
+    <string name="ago">ago</string>
+    <string name="my_profile">My profile</string>
+    <string name="profile_background_image">Profile background image</string>
 
     String publishableKey;
 

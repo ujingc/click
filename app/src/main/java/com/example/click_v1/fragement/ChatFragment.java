@@ -34,7 +34,6 @@ import java.util.List;
 
 public class ChatFragment extends Fragment implements ConversationListener {
 
-    private View rootView;
     private PreferenceManager preferenceManager;
 
     private List<ChatMessage> conversations;
@@ -57,7 +56,7 @@ public class ChatFragment extends Fragment implements ConversationListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         preferenceManager = new PreferenceManager(getApplicationContext());
-        rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
         conversationsRecyclerView = rootView.findViewById(R.id.conversationsRecyclerView);
         progressBar = rootView.findViewById(R.id.progressBar);
         fabNewChat = rootView.findViewById(R.id.fabNewChat);
@@ -71,7 +70,7 @@ public class ChatFragment extends Fragment implements ConversationListener {
     private void init() {
         conversations = new ArrayList<>();
         conversationsAdapter = new RecentConversationAdapter(conversations, this);
-//        conversationsRecyclerView.setAdapter(conversationsAdapter);
+        conversationsRecyclerView.setAdapter(conversationsAdapter);
         database = FirebaseFirestore.getInstance();
     }
 

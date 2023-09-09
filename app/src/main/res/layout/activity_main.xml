@@ -8,7 +8,7 @@
     android:background="@color/white"
     tools:context=".activities.MainActivity">
 
-
+    <!-- main activity frames -->
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -20,11 +20,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- main activity bottom bar -->
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/smoothBottomBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
-
         android:background="@color/background"
         android:translationZ="90dp"
         app:iconSize="@dimen/_18sdp"

@@ -7,8 +7,9 @@
     android:orientation="vertical"
     tools:context=".fragement.ChatFragment">
 
+    <!--   chat frame head-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/screenHeader"
+        android:id="@+id/frameHead"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:background="@color/primary"
@@ -50,7 +51,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text="Chat"
+            android:text="@string/chat"
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
@@ -61,45 +62,7 @@
             app:layout_constraintTop_toTopOf="@id/imageProfile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@drawable/background_search"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/screenHeader"
-        >
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_22sdp"
-            android:src="@drawable/round_search"
-            app:tint="@color/primary_label" />
-
-        <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:background="@null"
-            android:hint="Search"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:textColor="@color/primary_label"
-            android:textColorHint="@color/primary_label"
-            android:textSize="@dimen/_13ssp" />
-    </LinearLayout>
-
+    <!--   chat recycle view-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -108,7 +71,7 @@
         android:layout_weight="1"
         android:background="@drawable/background_content_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSearch">
+        app:layout_constraintTop_toBottomOf="@+id/frameHead">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/conversationsRecyclerView"
@@ -121,6 +84,7 @@
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+        <!--   chat loading icon-->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="@dimen/_25sdp"
@@ -130,6 +94,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--  add chat button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabNewChat"
             android:layout_width="wrap_content"

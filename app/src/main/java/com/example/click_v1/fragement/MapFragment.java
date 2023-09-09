@@ -44,6 +44,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -62,12 +63,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
     private View rootView, markerView;
     private CardView activityCardView, clusterCardView;
     private RecyclerView activityCardRecyclerView;
-    private LinearLayout exploreBtn;
     private FloatingActionButton fabAddActivityBtn;
     private ImageView imageView;
     private MaterialCardView markerCardView;
     private TextView markerText, markerTimeLeftText;
-    private AppCompatImageView refreshMapBtn;
+    private MaterialButton refreshMapBtn, exploreBtn;
 
     private GoogleMap mMap;
     private ClusterManager<MapClusterItem> clusterManager;
