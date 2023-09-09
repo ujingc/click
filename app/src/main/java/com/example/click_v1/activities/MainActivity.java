@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -71,7 +72,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setListeners() {
-        binding.imageSignOut.setOnClickListener(v -> signOut());
+//        binding.imageSignOut.setOnClickListener(v -> signOut());
 //        binding.fabNewChat.setOnClickListener(v ->
 //                startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
 
@@ -82,15 +83,20 @@ public class MainActivity extends BaseActivity {
     private void switchActivity(int position) {
         switch (position) {
             case 0:
+//                binding.screenHeader.setVisibility(View.VISIBLE);
                 replaceFragment(new ChatFragment());
                 break;
             case 1:
-                binding.textName.setText("Find Partners");
+//                binding.textName.setText("Find Partners");
+//                binding.imageSignOut.setImageResource(R.drawable.ic_refresh);
+//                binding.screenHeader.setVisibility(View.GONE);
                 replaceFragment(new MapFragment());
                 break;
             case 2:
+//                binding.screenHeader.setVisibility(View.VISIBLE);
                 break;
             case 3:
+//                binding.screenHeader.setVisibility(View.VISIBLE);
                 replaceFragment(new MeFragment());
                 break;
             default:
@@ -108,7 +114,7 @@ public class MainActivity extends BaseActivity {
     private void loadUserDetails() {
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        binding.imageProfile.setImageBitmap(bitmap);
+//        binding.imageProfile.setImageBitmap(bitmap);
     }
 
     private void showToast(String message) {

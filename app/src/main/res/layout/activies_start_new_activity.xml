@@ -4,8 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/favourite_background"
+    android:background="@color/primary"
     tools:context=".activities.StartNewActivity">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="Create your activity"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cancelBtn"
@@ -26,7 +37,7 @@
         android:id="@+id/title"
         android:layout_width="@dimen/_300sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:background="@drawable/background_input_bottom"
         android:clickable="true"
         android:orientation="vertical"
@@ -45,7 +56,7 @@
             android:textStyle="normal" />
 
         <EditText
-            android:id="@+id/search"
+            android:id="@+id/titleInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_5sdp"
@@ -78,6 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:text="Activity Topic"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
@@ -85,11 +97,11 @@
 
 
         <EditText
-            android:id="@+id/topicText"
+            android:id="@+id/topicInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_5sdp"
             android:background="@null"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:hint="#Choose a Topic"
             android:importantForAutofill="no"
             android:inputType="text"
@@ -97,6 +109,30 @@
             android:textColorHint="@color/secondary_label"
             android:textSize="@dimen/_11ssp"
             android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="Activity Distance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/distanceInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="1 km"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/secondary_label"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="normal" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -126,15 +162,20 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/announcementText"
+                android:id="@+id/announcementInput"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/background_long_button"
+                android:paddingHorizontal="@dimen/_10sdp"
                 android:gravity="top|left"
                 android:importantForAutofill="no"
-                android:inputType="text"
-                android:textColor="@color/white"
+                android:maxLength="300"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:lines="42"
+                android:textColor="@color/primary_label"
                 android:textColorHint="@color/secondary_label"
                 android:textSize="@dimen/_11ssp"
                 android:textStyle="normal"
@@ -143,14 +184,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/announcementTextCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:text="0/300"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toBottomOf="@id/announcementText"
-                app:layout_constraintEnd_toEndOf="@id/announcementText"/>
+                app:layout_constraintBottom_toBottomOf="@id/announcementInput"
+                app:layout_constraintEnd_toEndOf="@id/announcementInput"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
@@ -171,6 +213,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            android:id="@+id/startBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start Activity"

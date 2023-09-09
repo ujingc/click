@@ -71,7 +71,7 @@ public class ChatFragment extends Fragment implements ConversationListener {
     private void init() {
         conversations = new ArrayList<>();
         conversationsAdapter = new RecentConversationAdapter(conversations, this);
-        conversationsRecyclerView.setAdapter(conversationsAdapter);
+//        conversationsRecyclerView.setAdapter(conversationsAdapter);
         database = FirebaseFirestore.getInstance();
     }
 

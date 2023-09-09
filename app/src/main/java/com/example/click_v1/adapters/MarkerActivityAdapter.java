@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.click_v1.R;
 import com.example.click_v1.listeners.UserListener;
 import com.example.click_v1.models.MarkerActivity;
+import com.example.click_v1.models.User;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Date;
@@ -98,18 +98,29 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
                 localTimer.cancel();
             }
             Date now = new Date();
-            countDownLeftTime = getDateDiff(markerActivity.dateTime, now, TimeUnit.MILLISECONDS);
+            countDownLeftTime = getDateDiff(markerActivity.dateObject, now, TimeUnit.MILLISECONDS);
             localTimer = getDownTimer(countDownLeftTime);
             localTimer.start();
 
             topicText.setText(markerActivity.topic);
             titleText.setText(markerActivity.title);
             descriptionText.setText(markerActivity.description);
-            creatorImage.setImageBitmap(getBitmapFromEncodedString(markerActivity.user.image));
+            creatorImage.setImageBitmap(getBitmapFromEncodedString(markerActivity.creatorImage));
             creatorNameText.setText(markerActivity.creatorName);
-            if (!Objects.equals(senderId, markerActivity.user.id)) {
+            if (!Objects.equals(senderId, markerActivity.creatorId)) {
+                User user = new User();
+                user.name = markerActivity.creatorName;
+                user.image = markerActivity.creatorImage;
+                user.id = markerActivity.creatorId;
+                user.email = markerActivity.email;
+                user.location = markerActivity.location;
+                user.country = markerActivity.country;
+                user.gender = markerActivity.gender;
+                user.token = markerActivity.token;
+                user.selfIntroduction = markerActivity.selfIntroduction;
                 sendBtn.setVisibility(View.VISIBLE);
-                sendBtn.setOnClickListener(v -> userListener.onUserClick(markerActivity.user));
+                sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
+                sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
             }
         }
 

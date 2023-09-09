@@ -193,6 +193,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
+                android:id="@+id/sendBtnText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Send a message"
