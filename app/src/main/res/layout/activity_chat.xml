@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--chatting activity-->
+<!--   animateLayoutChanges enable system default animation on layout changes-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,8 +10,8 @@
     android:animateLayoutChanges="true"
     android:background="@color/primary"
     tools:context=".activities.ChatActivity">
-    <!--   animateLayoutChanges enable system defalut animation on layout changes-->
 
+    <!--    activity background-->
     <View
         android:id="@+id/viewBackground"
         android:layout_width="match_parent"
@@ -18,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    activity head background-->
     <View
         android:id="@+id/headerBackground"
         android:layout_width="match_parent"
@@ -26,6 +30,7 @@
         app:layout_constraintBottom_toTopOf="@id/viewSupporter"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!--    activity head supporter-->
     <View
         android:id="@+id/viewSupporter"
         android:layout_width="match_parent"
@@ -34,7 +39,7 @@
         android:background="@color/primary"
         app:layout_constraintTop_toBottomOf="@+id/imageBack" />
 
-
+    <!--    messages  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
@@ -49,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/viewSupporter"
         app:stackFromEnd="true" />
 
-    <!--        cliptoPadding set to false, only applies padding to the end of items-->
+    <!--    loading icon-->
     <ProgressBar
         android:id="@+id/processBar"
         android:layout_width="@dimen/_25sdp"
@@ -59,12 +64,12 @@
         app:layout_constraintStart_toStartOf="@id/viewBackground"
         app:layout_constraintTop_toTopOf="@id/viewBackground" />
 
+    <!--    go back icon-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageBack"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:padding="@dimen/_5sdp"
         android:src="@drawable/ic_back"
@@ -72,19 +77,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageInfo"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginRight="@dimen/_16sdp"
-        android:padding="@dimen/_4sdp"
-        android:src="@drawable/ic_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
-
+    <!--    go head title-->
     <TextView
         android:id="@+id/textName"
         android:layout_width="0dp"
@@ -98,19 +91,20 @@
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageBack"
-        app:layout_constraintEnd_toStartOf="@id/imageInfo"
         app:layout_constraintStart_toEndOf="@id/imageBack"
         app:layout_constraintTop_toTopOf="@id/imageBack" />
 
+    <!--    buy and send rewards to receiver card-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buyStarLayout"
+        android:id="@+id/rewardsCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_short_button"
         android:paddingBottom="@dimen/_10sdp"
         android:visibility="visible"
-        android:background="@drawable/background_short_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout">
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent">
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/receiverImage"
             android:layout_width="@dimen/_30sdp"
@@ -121,7 +115,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_oval="true"/>
+            app:riv_oval="true" />
 
         <LinearLayout
             android:id="@+id/productLayout"
@@ -129,76 +123,78 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/_15sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/receiverImage"
             app:layout_constraintStart_toEndOf="@+id/receiverImage"
-            app:layout_constraintTop_toTopOf="@+id/receiverImage"
-            app:layout_constraintBottom_toBottomOf="@+id/receiverImage">
+            app:layout_constraintTop_toTopOf="@+id/receiverImage">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="赏星星表示支持"
+                android:text="@string/buy_title"
+                android:textColor="@color/primary_label"
                 android:textSize="@dimen/_10ssp"
-                android:textStyle="normal"
-                android:textColor="@color/primary_label"/>
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/receiverNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Harper"
+                android:text="@string/buy_receiver"
+                android:textColor="@color/primary_label"
                 android:textSize="@dimen/_10ssp"
-                android:textStyle="bold"
-                android:textColor="@color/primary_label"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:paddingHorizontal="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
             android:background="@drawable/star_background_light"
             android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="购买"
-                android:textStyle="bold"
+                android:text="@string/buy"
+                android:textColor="@color/star_background"
                 android:textSize="@dimen/_14ssp"
-                android:textColor="@color/star_background"/>
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:background="@drawable/ic_star"
-            android:backgroundTint="@color/star_background"
-            android:scaleType="centerCrop"
+                android:textStyle="bold" />
 
-            app:riv_oval="true"/>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/ic_star"
+                android:backgroundTint="@color/star_background"
+                android:scaleType="centerCrop"
+
+                app:riv_oval="true" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/buyStarDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="创作者将会看到你的留言和随附的星星"
             android:layout_marginTop="@dimen/_15sdp"
-            app:layout_constraintTop_toBottomOf="@id/receiverImage"
+            android:text="@string/rewards_details"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/receiverImage" />
 
 
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:background="@drawable/background_activity_light"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buyStarDescription">
@@ -208,51 +204,51 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:button="@drawable/ic_star"
-                android:onClick="onRadioButtonClicked"
-                android:text="50" />
+                android:text="@string/_50" />
 
-            <RadioButton android:id="@+id/radioOption2"
+            <RadioButton
+                android:id="@+id/radioOption2"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
-                android:text="100"
-                android:onClick="onRadioButtonClicked"
-                android:button="@drawable/ic_star"/>
-            <RadioButton android:id="@+id/radioOption3"
+                android:button="@drawable/ic_star"
+                android:text="@string/_100" />
+
+            <RadioButton
+                android:id="@+id/radioOption3"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
-                android:text="200"
-                android:onClick="onRadioButtonClicked"
-                android:button="@drawable/ic_star"/>
-            <RadioButton android:id="@+id/radioOption4"
+                android:button="@drawable/ic_star"
+                android:text="@string/_200" />
+
+            <RadioButton
+                android:id="@+id/radioOption4"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:button="@android:color/transparent"
-                android:paddingLeft="@dimen/_10sdp"
-                android:text="自定"
-                android:onClick="onRadioButtonClicked"/>
+                android:paddingStart="@dimen/_10sdp"
+                android:text="@string/custom"
+                tools:ignore="RtlSymmetry" />
         </RadioGroup>
-
-
-
 
         <EditText
             android:id="@+id/customStarsInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_12sdp"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_2sdp"
-            android:visibility="gone"
+            android:autofillHints=""
             android:background="@drawable/background_input"
+            android:hint="@string/buy_hint"
             android:inputType="number"
-            android:hint="发送自定数量......"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingVertical="@dimen/_2sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
             android:id="@+id/lineBeaker"
@@ -262,8 +258,7 @@
             android:background="@drawable/background_input_bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customStarsInput"
-            />
+            app:layout_constraintTop_toBottomOf="@id/customStarsInput" />
 
 
         <LinearLayout
@@ -273,43 +268,44 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center_horizontal"
             android:background="@color/primary"
             android:clickable="true"
+            android:gravity="center_horizontal"
             android:padding="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="购买要送出的星星"
+                android:text="@string/buy_stars"
                 android:textColor="@color/primary_label"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--    message layout-->
     <LinearLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_5sdp"
         android:background="@color/primary"
         android:gravity="bottom"
         android:orientation="horizontal"
+        android:paddingTop="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!--        message input-->
         <EditText
             android:id="@+id/inputMessage"
             android:layout_width="@dimen/_250sdp"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:paddingEnd="@dimen/_40sdp"
             android:autofillHints="no"
             android:background="@drawable/background_chat_input"
             android:ems="10"
@@ -317,10 +313,13 @@
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
             android:maxLines="10"
+            android:minHeight="@dimen/_40sdp"
             android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_40sdp"
             android:textColor="@color/white"
             android:textColorHint="@color/secondary_text" />
 
+        <!--        send message button-->
         <FrameLayout
             android:id="@+id/layoutSend"
             android:layout_width="@dimen/_40sdp"
@@ -333,17 +332,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/layoutSendStars">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginLeft="@dimen/_4sdp"
+                android:backgroundTint="@color/primary_dark"
                 android:padding="@dimen/_8sdp"
-                android:src="@drawable/ic_send"
-                android:tint="@color/white" />
+                android:tint="@color/white"
+                app:icon="@drawable/ic_send" />
         </FrameLayout>
 
-
+        <!--        star rewards button-->
         <FrameLayout
             android:id="@+id/layoutSendStars"
             android:layout_width="@dimen/_40sdp"
@@ -363,6 +362,7 @@
         </FrameLayout>
     </LinearLayout>
 
+    <!--    online status bar -->
     <TextView
         android:id="@+id/textAvailability"
         android:layout_width="match_parent"

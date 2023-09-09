@@ -14,6 +14,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,13 +59,14 @@ import java.util.concurrent.TimeUnit;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, UserListener {
     private View rootView, markerView;
-    private CardView activityCardView, clusterCardView;
+    private CardView clusterCardView;
     private RecyclerView activityCardRecyclerView;
     private FloatingActionButton fabAddActivityBtn;
     private ImageView imageView;
     private MaterialCardView markerCardView;
     private TextView markerText, markerTimeLeftText;
     private MaterialButton refreshMapBtn, exploreBtn;
+    private ConstraintLayout selectedActivityCardView;
 
     private GoogleMap mMap;
     private ClusterManager<MapClusterItem> clusterManager;
@@ -116,7 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         markerActivities = new ArrayList<>();
         selectedActivities = new ArrayList<>();
 
-        activityCardView = rootView.findViewById(R.id.activityCardView);
+        selectedActivityCardView = rootView.findViewById(R.id.selectedActivityCardView);
         clusterCardView = rootView.findViewById(R.id.clusterCardView);
         activityCardRecyclerView = rootView.findViewById(R.id.activityCardRecyclerView);
         exploreBtn = rootView.findViewById(R.id.exploreBtn);
@@ -296,7 +298,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
                         marker.setVisible(false);
                     }
                 }
-                activityCardView.setVisibility(View.GONE);
+                selectedActivityCardView.setVisibility(View.GONE);
             }
         };
     }

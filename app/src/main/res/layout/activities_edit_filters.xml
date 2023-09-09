@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/settingsViewPager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:adjustViewBounds="true"
-        android:gravity="center"
-        android:text="Filters"
-        android:textStyle="bold"
-        android:textSize="@dimen/_13ssp"
-        android:textColor="@color/primary_label"
         android:background="@drawable/textline"
+        android:gravity="center"
         android:paddingStart="@dimen/_50sdp"
         android:paddingEnd="@dimen/_50sdp"
         android:scaleType="centerCrop"
+        android:text="@string/filters"
+        android:textColor="@color/primary_label"
+        android:textSize="@dimen/_13ssp"
+        android:textStyle="bold"
         android:translationZ="90dp"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,26 +27,25 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:padding="@dimen/_5sdp"
         android:src="@drawable/ic_back"
+        android:translationZ="90dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:translationZ="90dp"
-        app:tint="@color/primary_label"/>
+        app:tint="@color/primary_label" />
 
-<TextView
-    android:id="@+id/distanceLabelText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_20sdp"
-    android:layout_marginStart="@dimen/_10sdp"
-    android:text="Distance"
-    android:textColor="@color/primary_label"
-    android:textSize="@dimen/_13ssp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/settingsViewPager"/>
+    <TextView
+        android:id="@+id/distanceLabelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/distance"
+        android:textColor="@color/primary_label"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsViewPager" />
 
     <TextView
         android:id="@+id/distanceText"
@@ -53,24 +53,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:text="0-10 km"
+        android:text="@string/_0_10_km"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsViewPager"/>
+        app:layout_constraintTop_toBottomOf="@+id/settingsViewPager" />
+
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        android:scaleX="2"
-        android:scaleY="2"
+        android:layout_marginTop="@dimen/_10sdp"
         android:max="30"
         android:min="1"
         android:progress="10"
-        app:layout_constraintTop_toBottomOf="@+id/distanceLabelText"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/distanceLabelText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

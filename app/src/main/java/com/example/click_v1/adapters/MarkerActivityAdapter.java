@@ -65,7 +65,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
     class MarkerActivityViewHolder extends RecyclerView.ViewHolder {
 
-        private final CardView activityCardView;
+        private final RecyclerView activityCardRecyclerView;
         private final LinearLayout sendBtn;
 
         private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText;
@@ -80,7 +80,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
         public MarkerActivityViewHolder(View view) {
             super(view);
-            activityCardView = view.findViewById(R.id.activityCardView);
+            activityCardRecyclerView = view.findViewById(R.id.activityCardRecyclerView);
             sendBtn = view.findViewById(R.id.sendBtn);
             topicText = view.findViewById(R.id.topicText);
             titleText = view.findViewById(R.id.titleText);
@@ -138,7 +138,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
                 @Override
                 public void onFinish() {
-                    activityCardView.setVisibility(View.GONE);
+                    activityCardRecyclerView.setVisibility(View.GONE);
                 }
             };
         }

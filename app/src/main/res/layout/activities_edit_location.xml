@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,6 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:padding="@dimen/_5sdp"
         android:src="@drawable/ic_back"
@@ -35,14 +35,13 @@
 
     <TextView
         android:id="@+id/saveBtn"
-        android:layout_width="@dimen/_35sdp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginRight="@dimen/_16sdp"
         android:padding="@dimen/_4sdp"
         android:src="@drawable/ic_info"
-        android:text="OK"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +57,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Current Location"
+        android:text="@string/current_location"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_18ssp"
         android:textStyle="normal"
@@ -71,27 +70,28 @@
         android:id="@+id/locationInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_30sdp"
         android:autofillHints="no"
         android:background="@color/white"
         android:clickable="true"
-        android:hint="Location"
+        android:hint="@string/location"
         android:padding="@dimen/_10sdp"
+        android:paddingStart="@dimen/_30sdp"
         android:textColor="@color/primary_label"
         android:textColorHint="@color/secondary_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/headerBackground"
+        tools:ignore="RtlSymmetry" />
 
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/locationIcon"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:padding="@dimen/_4sdp"
-        android:tint="@color/primary"
         android:src="@drawable/ic_location_on"
+        android:tint="@color/primary"
         app:layout_constraintBottom_toBottomOf="@+id/locationInput"
         app:layout_constraintStart_toStartOf="@id/locationInput"
         app:layout_constraintTop_toTopOf="@+id/locationInput"
@@ -101,10 +101,10 @@
         android:id="@+id/checkIcon1"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:padding="@dimen/_4sdp"
-        android:tint="@color/primary"
         android:src="@drawable/ic_check"
+        android:tint="@color/primary"
         app:layout_constraintBottom_toBottomOf="@+id/locationInput"
         app:layout_constraintEnd_toEndOf="@id/locationInput"
         app:layout_constraintTop_toTopOf="@+id/locationInput"
@@ -118,7 +118,7 @@
         android:autofillHints="no"
         android:background="@color/white"
         android:clickable="true"
-        android:hint="Do Not Show Location"
+        android:hint="@string/do_not_show_location"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:padding="@dimen/_10sdp"
@@ -126,17 +126,18 @@
         android:textColorHint="@color/secondary_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationInput" />
+        app:layout_constraintTop_toBottomOf="@+id/locationInput"
+        tools:ignore="TextViewEdits" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/hideCheckBtn"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:padding="@dimen/_4sdp"
+        android:src="@drawable/ic_check"
         android:tint="@color/primary"
         android:visibility="gone"
-        android:src="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="@+id/checkIcon2"
         app:layout_constraintEnd_toEndOf="@id/checkIcon2"
         app:layout_constraintTop_toTopOf="@+id/checkIcon2"
@@ -146,10 +147,10 @@
         android:id="@+id/progressBar"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

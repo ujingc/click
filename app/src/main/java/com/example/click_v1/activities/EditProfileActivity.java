@@ -56,10 +56,6 @@ public class EditProfileActivity extends AppCompatActivity {
         binding.hobbiesLayout.setOnClickListener(v -> editHobbies());
         binding.editHobbiesIcon.setOnClickListener(v -> editHobbies());
 
-        binding.genderLayout.setOnClickListener(v -> editGender());
-        binding.editGenderIcon.setOnClickListener(v -> editGender());
-        binding.genderText.setOnClickListener(v -> editGender());
-
         binding.birthdayLayout.setOnClickListener(v->editorBirthday());
         binding.editBirthdayIcon.setOnClickListener(v->editorBirthday());
         binding.birthdayText.setOnClickListener(v->editorBirthday());
@@ -74,7 +70,6 @@ public class EditProfileActivity extends AppCompatActivity {
         binding.countryText.setText(preferenceManager.getString(Constants.KEY_COUNTRY));
         binding.birthdayText.setText(preferenceManager.getString(Constants.KEY_BIRTHDAY));
         binding.locationText.setText(preferenceManager.getString(Constants.KEY_LOCATION));
-        binding.genderText.setText(preferenceManager.getString(Constants.KEY_GENDER));
     }
 
     private void editName() {

@@ -8,9 +8,9 @@
         android:id="@+id/checkoutTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_5sdp"
-        android:text="结账"
+        android:paddingTop="@dimen/_10sdp"
+        android:text="@string/check_out"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
@@ -21,12 +21,12 @@
         android:id="@+id/cancelBtn"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:src="@drawable/ic_cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -44,9 +44,9 @@
         android:id="@+id/productLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical"
         android:padding="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="@+id/productIcon"
         app:layout_constraintStart_toEndOf="@+id/productIcon"
         app:layout_constraintTop_toBottomOf="@+id/checkoutTitle">
@@ -55,19 +55,19 @@
             android:id="@+id/productTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="99颗星"
+            android:text="@string/_99_stars"
+            android:textColor="@color/primary_label"
             android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_label"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/productDescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="由Click预售"
+            android:text="@string/sell_by_app"
+            android:textColor="@color/secondary_label"
             android:textSize="@dimen/_10ssp"
-            android:textStyle="normal"
-            android:textColor="@color/secondary_label"/>
+            android:textStyle="normal" />
 
     </LinearLayout>
 
@@ -75,94 +75,95 @@
         android:id="@+id/productItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="normal"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/_99_stars"
         android:textColor="@color/secondary_label"
         android:textSize="@dimen/_10ssp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:text="99颗星"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productIcon"/>
+        app:layout_constraintTop_toBottomOf="@id/productIcon" />
 
     <TextView
         android:id="@+id/productPriceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="normal"
-        android:textColor="@color/secondary_label"
-        android:textSize="@dimen/_10ssp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:text="NT$30"
+        android:text="@string/nt_30"
+        android:textColor="@color/secondary_label"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productIcon"/>
+        app:layout_constraintTop_toBottomOf="@id/productIcon" />
+
     <TextView
         android:id="@+id/productSubtotalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="normal"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/sum"
         android:textColor="@color/secondary_label"
         android:textSize="@dimen/_10ssp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:text="小结"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productItemText"/>
+        app:layout_constraintTop_toBottomOf="@id/productItemText" />
 
     <TextView
         android:id="@+id/productSubtotalPriceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="normal"
-        android:textColor="@color/secondary_label"
-        android:textSize="@dimen/_10ssp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:text="NT$30"
+        android:text="@string/nt_30"
+        android:textColor="@color/secondary_label"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productPriceText"/>
+        app:layout_constraintTop_toBottomOf="@id/productPriceText" />
 
     <TextView
         android:id="@+id/productTotalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/total"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_12ssp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:text="总计"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productSubtotalText"/>
+        app:layout_constraintTop_toBottomOf="@id/productSubtotalText" />
 
     <TextView
         android:id="@+id/productTotalPriceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/primary_label"
-        android:textSize="@dimen/_12ssp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:text="NT$30"
+        android:text="@string/nt_30"
+        android:textColor="@color/primary_label"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productSubtotalPriceText"/>
+        app:layout_constraintTop_toBottomOf="@id/productSubtotalPriceText" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="normal"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/purchase_policy"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_12ssp"
-        android:text="点按确认付款即表示你同意Click的及Star的使用条款和资料政策"
+        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@id/payNowBtn"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/payNowBtn"
         android:layout_width="@dimen/_300sdp"
@@ -174,30 +175,30 @@
         android:clickable="true"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
-            android:text="付款"
-            android:textStyle="bold"
+            android:text="@string/purchase"
             android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/payNowPriceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:text="NT$30"
-            android:textStyle="bold"
+            android:text="@string/nt_30"
             android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

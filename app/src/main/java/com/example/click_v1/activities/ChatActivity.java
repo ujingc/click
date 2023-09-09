@@ -235,10 +235,10 @@ public class ChatActivity extends BaseActivity {
         binding.imageBack.setOnClickListener(v -> onBackPressed());
         binding.layoutSend.setOnClickListener(v -> sendMessage());
         binding.sendStarBtn.setOnClickListener(v -> {
-            if (binding.buyStarLayout.getVisibility() == View.VISIBLE) {
-                binding.buyStarLayout.setVisibility(View.GONE);
+            if (binding.rewardsCard.getVisibility() == View.VISIBLE) {
+                binding.rewardsCard.setVisibility(View.GONE);
             } else {
-                binding.buyStarLayout.setVisibility(View.VISIBLE);
+                binding.rewardsCard.setVisibility(View.VISIBLE);
             }
         });
         binding.buyNowBtn.setOnClickListener(v -> {
@@ -253,21 +253,21 @@ public class ChatActivity extends BaseActivity {
                         intent.putExtra(Constants.KEY_STARS, stars);
                         binding.customStarsInput.setVisibility(View.GONE);
                         startActivity(intent);
-                        binding.buyStarLayout.setVisibility(View.GONE);
+                        binding.rewardsCard.setVisibility(View.GONE);
                         break;
                     case R.id.radioOption2:
                         stars = 100;
                         intent.putExtra(Constants.KEY_STARS, stars);
                         binding.customStarsInput.setVisibility(View.GONE);
                         startActivity(intent);
-                        binding.buyStarLayout.setVisibility(View.GONE);
+                        binding.rewardsCard.setVisibility(View.GONE);
                         break;
                     case R.id.radioOption3:
                         stars = 200;
                         intent.putExtra(Constants.KEY_STARS, stars);
                         binding.customStarsInput.setVisibility(View.GONE);
                         startActivity(intent);
-                        binding.buyStarLayout.setVisibility(View.GONE);
+                        binding.rewardsCard.setVisibility(View.GONE);
                         break;
                     case R.id.radioOption4:
                         stars = Integer.parseInt(binding.customStarsInput.getText().toString());
@@ -275,7 +275,7 @@ public class ChatActivity extends BaseActivity {
                             intent.putExtra(Constants.KEY_STARS, stars);
                             binding.customStarsInput.setVisibility(View.GONE);
                             startActivity(intent);
-                            binding.buyStarLayout.setVisibility(View.GONE);
+                            binding.rewardsCard.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(this, "You have to gift at least 10 stars", Toast.LENGTH_SHORT).show();
                         }

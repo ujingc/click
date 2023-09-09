@@ -34,13 +34,13 @@
 
     <TextView
         android:id="@+id/saveBtn"
-        android:layout_width="@dimen/_35sdp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:padding="@dimen/_4sdp"
         android:src="@drawable/ic_info"
-        android:text="OK"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Hobbies"
+        android:text="@string/hobbies"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_18ssp"
         android:textStyle="normal"
@@ -64,7 +64,6 @@
         app:layout_constraintEnd_toStartOf="@id/saveBtn"
         app:layout_constraintStart_toEndOf="@id/imageBack"
         app:layout_constraintTop_toTopOf="@id/imageBack" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,10 +85,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Music"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/music"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon1"
@@ -117,10 +116,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Shopping"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/shopping"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon2"
@@ -148,10 +147,11 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Traveling"
-                app:layout_constraintStart_toStartOf="parent"
+
+                android:text="@string/traveling"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon3"
@@ -179,10 +179,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Enjoy Food"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/enjoy_food"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon4"
@@ -210,10 +210,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Singing"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/singing"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon5"
@@ -241,10 +241,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Gym"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/gym"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon6"
@@ -272,10 +272,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Watch Movie"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/watch_movie"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon7"
@@ -303,10 +303,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Photographing"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/photographing"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon8"
@@ -334,10 +334,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Cooking"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/cooking"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon9"
@@ -365,10 +365,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Meditation"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/meditation"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon10"
@@ -396,10 +396,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Gardening"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/gardening"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon11"
@@ -427,10 +427,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Langauge Exchange"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/language_exchange"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon12"
@@ -458,10 +458,10 @@
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="@dimen/_35sdp"
                 android:paddingEnd="@dimen/_18sdp"
-                android:text="Dancing"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/dancing"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon13"
@@ -483,10 +483,10 @@
         android:id="@+id/progressBar"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light">
@@ -26,7 +27,6 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:padding="@dimen/_5sdp"
         android:src="@drawable/ic_back"
@@ -36,14 +36,13 @@
 
     <TextView
         android:id="@+id/saveBtn"
-        android:layout_width="@dimen/_35sdp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginRight="@dimen/_16sdp"
         android:padding="@dimen/_4sdp"
         android:src="@drawable/ic_info"
-        android:text="OK"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Self Introduction"
+        android:text="@string/self_introduction"
         android:textColor="@color/primary_label"
         android:textSize="@dimen/_18ssp"
         android:textStyle="normal"
@@ -82,16 +81,19 @@
         android:clickable="true"
         android:textColor="@color/primary_label"
         android:textColorHint="@color/secondary_text"
+        tools:ignore="LabelFor,RtlHardcoded"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/headerBackground"
+ />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_5sdp"
-        android:text="0/300"
+        android:text="@string/_0_300"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="@id/selfIntroductionInput"
         app:layout_constraintEnd_toEndOf="@id/selfIntroductionInput"/>
