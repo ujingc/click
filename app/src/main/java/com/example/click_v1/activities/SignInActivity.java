@@ -79,6 +79,12 @@ public class SignInActivity extends AppCompatActivity {
                         preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
                         preferenceManager.putString(Constants.KEY_NAME, documentSnapshot.getString(Constants.KEY_NAME));
                         preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
+
+                        if( documentSnapshot.getString(Constants.KEY_DISTANCE) != null) {
+                            preferenceManager.putString(Constants.KEY_DISTANCE, documentSnapshot.getString(Constants.KEY_DISTANCE));
+                        } else {
+                            preferenceManager.putString(Constants.KEY_DISTANCE, "5");
+                        }
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

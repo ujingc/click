@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MarkerActivity implements Serializable {
-    public String creatorId, id, topic, title, description, creatorName, distance,
+    public String creatorId, id, topic, title, description, creatorName, distance, city,
             name, creatorImage, token, selfIntroduction, location, country, gender, email, dateTime;
     public double lat, lng;
     public Date dateObject;
@@ -155,5 +155,13 @@ public class MarkerActivity implements Serializable {
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

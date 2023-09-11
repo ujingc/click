@@ -134,6 +134,29 @@
             android:textStyle="normal"
             tools:ignore="TextViewEdits" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="City"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/cityInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@null"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/secondary_label"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="normal"
+            tools:ignore="TextViewEdits" />
+
     </LinearLayout>
 
     <LinearLayout

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.View;
 import android.widget.Toast;
 
 
@@ -56,9 +55,8 @@ public class MainActivity extends BaseActivity {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA},
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                },
                 225);
 //        listenConversations();
     }
@@ -83,20 +81,12 @@ public class MainActivity extends BaseActivity {
     private void switchActivity(int position) {
         switch (position) {
             case 0:
-//                binding.screenHeader.setVisibility(View.VISIBLE);
                 replaceFragment(new ChatFragment());
                 break;
             case 1:
-//                binding.textName.setText("Find Partners");
-//                binding.imageSignOut.setImageResource(R.drawable.ic_refresh);
-//                binding.screenHeader.setVisibility(View.GONE);
                 replaceFragment(new MapFragment());
                 break;
             case 2:
-//                binding.screenHeader.setVisibility(View.VISIBLE);
-                break;
-            case 3:
-//                binding.screenHeader.setVisibility(View.VISIBLE);
                 replaceFragment(new MeFragment());
                 break;
             default:
@@ -120,60 +110,6 @@ public class MainActivity extends BaseActivity {
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
-
-//    private void listenConversations() {
-//        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
-//                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
-//                .addSnapshotListener(eventListener);
-//        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
-//                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
-//                .addSnapshotListener(eventListener);
-//    }
-
-//    private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
-//        if (error != null) {
-//            return;
-//        }
-//        if (value != null) {
-//            // listen to conversations record, and set chat message by conversations
-//            for (DocumentChange documentChange : value.getDocumentChanges()) {
-//                if (documentChange.getType() == DocumentChange.Type.ADDED) {
-//                    String senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
-//                    String receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
-//                    ChatMessage chatMessage = new ChatMessage();
-//                    chatMessage.senderId = senderId;
-//                    chatMessage.receiverId = receiverId;
-//                    if (preferenceManager.getString(Constants.KEY_USER_ID).equals(senderId)) {
-//                        chatMessage.conversationImage = documentChange.getDocument().getString(Constants.KEY_RECEIVER_IMAGE);
-//                        chatMessage.conversationName = documentChange.getDocument().getString(Constants.KEY_RECEIVER_NAME);
-//                        chatMessage.conversationId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
-//                    } else {
-//                        chatMessage.conversationImage = documentChange.getDocument().getString(Constants.KEY_SENDER_IAMGE);
-//                        chatMessage.conversationName = documentChange.getDocument().getString(Constants.KEY_SENDER_NAME);
-//                        chatMessage.conversationId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
-//                    }
-//                    chatMessage.message = documentChange.getDocument().getString(Constants.KEY_LAST_MESSAGE);
-//                    chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
-//                    conversations.add(chatMessage);
-//                } else if (documentChange.getType() == DocumentChange.Type.MODIFIED) {
-//                    for (int i = 0; i < conversations.size(); i++) {
-//                        String senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
-//                        String receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
-//                        if (conversations.get(i).senderId.equals(senderId) && conversations.get(i).receiverId.equals(receiverId)) {
-//                            conversations.get(i).message = documentChange.getDocument().getString(Constants.KEY_LAST_MESSAGE);
-//                            conversations.get(i).dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//            Collections.sort(conversations, (obj1, obj2) -> obj2.dateObject.compareTo(obj1.dateObject));
-//            conversationsAdapter.notifyDataSetChanged();
-//            binding.conversationsRecyclerView.smoothScrollToPosition(0);
-//            binding.conversationsRecyclerView.setVisibility(View.VISIBLE);
-//            binding.progressBar.setVisibility(View.GONE);
-//        }
-//    };
 
     private void getToken() {
         // get token from firebase messaging and pass token to updateToken
@@ -208,12 +144,5 @@ public class MainActivity extends BaseActivity {
             finish();
         }).addOnFailureListener(e -> showToast("Unable to sign out"));
     }
-
-//    @Override
-//    public void onConversationClicked(User user) {
-//        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-//        intent.putExtra(Constants.KEY_USER, user);
-//        startActivity(intent);
-//    }
 
 }

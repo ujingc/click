@@ -29,13 +29,16 @@ public class StartNewActivity extends AppCompatActivity {
 
     private FirebaseFirestore database;
 
-    private MarkerActivity ownActivity;
+    private MarkerActivity myActivity;
+
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActiviesStartNewActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//        loadActivityDetails();
         init();
         setListeners();
     }
@@ -43,12 +46,16 @@ public class StartNewActivity extends AppCompatActivity {
     private void init() {
         preferenceManager = new PreferenceManager(getApplicationContext());
         database = FirebaseFirestore.getInstance();
-        loadOwnActivity();
+        loadMyActivity();
     }
+
+//    private void loadActivityDetails() {
+//        city = (String) getIntent().getSerializableExtra(Constants.KEY_CITY);
+//        binding.cityInput.setText(city);
+//    }
 
     private void createActivity() {
         if (binding.titleInput.getText().toString().trim().length() > 0) {
-
             HashMap<String, Object> activity = new HashMap<>();
             activity.put(Constants.KEY_CREATOR_ID, preferenceManager.getString(Constants.KEY_USER_ID));
             activity.put(Constants.KEY_CREATOR_NAME, preferenceManager.getString(Constants.KEY_NAME));
@@ -57,24 +64,27 @@ public class StartNewActivity extends AppCompatActivity {
             activity.put(Constants.KEY_COUNTRY, preferenceManager.getString(Constants.KEY_COUNTRY));
             activity.put(Constants.KEY_GENDER, preferenceManager.getString(Constants.KEY_GENDER));
             activity.put(Constants.KEY_EMAIL, preferenceManager.getString(Constants.KEY_EMAIL));
-
-            activity.put(Constants.KEY_LAT, "-34.01");
-            activity.put(Constants.KEY_LNG, "151.01");
+            activity.put(Constants.KEY_LAT, preferenceManager.getString(Constants.KEY_LAT));
+            activity.put(Constants.KEY_LNG, preferenceManager.getString(Constants.KEY_LNG));
             activity.put(Constants.KEY_TITLE, binding.titleInput.getText().toString());
             activity.put(Constants.KEY_TOPIC, binding.topicInput.getText().toString());
             activity.put(Constants.KEY_DESCRIPTION, binding.announcementInput.getText().toString());
-            activity.put(Constants.KEY_LOCATION, "Sydney");
+            activity.put(Constants.KEY_LOCATION, city);
             activity.put(Constants.KEY_TIMESTAMP, new Date());
-            if (ownActivity == null) {
+            activity.put(Constants.KEY_CITY, preferenceManager.getString(Constants.KEY_CITY));
+
+            if (myActivity == null) {
                 database.collection(Constants.KEY_COLLECTION_ACTIVITY).add(activity).addOnSuccessListener(documentReference -> {
                     onBackPressed();
                 });
             } else {
-                DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(ownActivity.getId());
+                DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(myActivity.getId());
                 documentReference.update(
                                 Constants.KEY_TITLE, binding.titleInput.getText().toString(),
                                 Constants.KEY_TOPIC, binding.topicInput.getText().toString(),
                                 Constants.KEY_DESCRIPTION, binding.announcementInput.getText().toString(),
+                                Constants.KEY_DISTANCE, preferenceManager.getString(Constants.KEY_DISTANCE),
+                                Constants.KEY_CITY, activity.get(Constants.KEY_CITY),
                                 Constants.KEY_TIMESTAMP, new Date())
                         .addOnSuccessListener(ref -> {
                             onBackPressed();
@@ -112,11 +122,12 @@ public class StartNewActivity extends AppCompatActivity {
         });
     }
 
-    private void loadOwnActivity() {
-        ownActivity = (MarkerActivity) getIntent().getSerializableExtra(Constants.KEY_COLLECTION_ACTIVITY);
-        binding.topicInput.setText(ownActivity.topic);
-        binding.titleInput.setText(ownActivity.title);
-        binding.announcementInput.setText(ownActivity.description);
+    private void loadMyActivity() {
+        myActivity = (MarkerActivity) getIntent().getSerializableExtra(Constants.KEY_COLLECTION_ACTIVITY);
+        binding.topicInput.setText(myActivity.topic);
+        binding.titleInput.setText(myActivity.title);
+        binding.announcementInput.setText(myActivity.description);
+        binding.cityInput.setText(preferenceManager.getString(Constants.KEY_CITY));
         binding.distanceInput.setText(preferenceManager.getString(Constants.KEY_DISTANCE));
     }
 }

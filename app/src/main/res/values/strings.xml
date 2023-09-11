@@ -115,6 +115,7 @@
     <string name="purchase_policy">点按确认付款即表示你同意Click的及Star的使用条款和资料政策</string>
     <string name="purchase">付款</string>
     <string name="custom_marker_image">custom marker image</string>
+    <string name="find_activity_around_you">Find Activity Around You</string>
 
     String publishableKey;
 
