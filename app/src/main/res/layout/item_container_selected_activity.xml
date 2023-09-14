@@ -4,11 +4,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/selectedActivityCardView"
+    android:id="@+id/selectedMarkerInfo"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_190sdp"
+    android:layout_height="wrap_content"
     android:background="@color/primary"
-    android:clickable="true"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -77,13 +76,12 @@
         android:id="@+id/viewSupporter"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/viewOptionBtn"
         app:layout_constraintTop_toTopOf="parent"/>
 
-
-    <!--    card title  -->
+    <!--    title  -->
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -120,30 +118,22 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!--    card count down  -->
+    <!--    count down  -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@color/primary_dark"
+        android:background="@color/star_background"
         android:orientation="horizontal"
         android:padding="@dimen/_5sdp"
         app:layout_constraintStart_toEndOf="@id/title"
         app:layout_constraintTop_toTopOf="@+id/viewSupporter">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/live_until"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp" />
-
-        <TextView
             android:id="@+id/hoursText"
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
-            android:layout_marginStart="@dimen/_10sdp"
             android:background="@drawable/background_short_button"
             android:gravity="center"
             android:text="@string/_10" />
@@ -181,7 +171,7 @@
             android:text="@string/_48" />
     </LinearLayout>
 
-    <!--    card detail  -->
+    <!--    detail  -->
     <TextView
         android:id="@+id/descriptionText"
         android:layout_width="wrap_content"
@@ -200,7 +190,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <!--    card owner  -->
+    <!--    creator info  -->
     <LinearLayout
         android:id="@+id/imagePoster"
         android:layout_width="wrap_content"
@@ -231,7 +221,7 @@
             android:textSize="@dimen/_12ssp" />
     </LinearLayout>
 
-    <!--    card rewards-->
+    <!--    gift -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/sendStarBtn"
         android:layout_width="@dimen/_20sdp"
@@ -243,7 +233,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!--    card send message to card owner-->
+    <!--    send message-->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sendBtn"
         android:layout_width="@dimen/_300sdp"
@@ -258,7 +248,6 @@
         android:textColor="@color/primary"
         android:gravity="center"
         android:padding="@dimen/_5sdp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

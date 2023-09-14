@@ -4,6 +4,7 @@ import static com.example.click_v1.utilities.Common.getBitmapDescriptorFromView;
 import static com.example.click_v1.utilities.Common.getBitmapFromEncodedString;
 import static com.example.click_v1.utilities.Common.getDateDiff;
 import static com.example.click_v1.utilities.Common.getReadableDateTime;
+import static com.example.click_v1.utilities.Common.loading;
 import static com.example.click_v1.utilities.Common.toTriangleEdgeCardView;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -43,7 +44,6 @@ import com.example.click_v1.models.MarkerActivity;
 import com.example.click_v1.models.User;
 import com.example.click_v1.utilities.Constants;
 import com.example.click_v1.utilities.PreferenceManager;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -73,31 +73,31 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, UserListener, ActivityCardListener {
     //    frame is not automatically bind
     private View rootView, markerView;
     private CardView clusterCardView;
-    private RecyclerView activityCardRecyclerView;
+    private RecyclerView markerRecyclerView;
     private FloatingActionButton fabAddActivityBtn;
     private ImageView imageView;
     private TextView markerText, markerTimeLeftText;
     private MaterialButton refreshMapBtn, exploreBtn;
-    private ConstraintLayout selectedActivityCardView;
+    private ConstraintLayout selectedMarkerInfo;
+    private MarkerActivityAdapter markersInfoAdapter;
+
 
     private GoogleMap mMap;
     private ClusterManager<MapClusterItem> clusterManager;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
-    FusedLocationProviderClient fusedLocationProviderClient;
 
-    private MarkerActivityAdapter markerActivityAdapter;
     private List<MarkerActivity> markerActivities;
-    private List<MarkerActivity> selectedActivities;
+    private List<MarkerActivity> selectedMarkers;
     private MarkerActivity myActivity;
     private List<Address> addresses;
+
 
 
     @Override
@@ -111,7 +111,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         rootView = inflater.inflate(R.layout.fragment_map, container, false);
         markerView = inflater.inflate(R.layout.custom_marker, container, false);
         database = FirebaseFirestore.getInstance();
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(rootView.getContext());
         init();
         getLocation();
         setListeners();
@@ -129,22 +128,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         mMap.setOnMarkerClickListener(marker -> false);
     }
 
-    // send message method
-    @Override
-    public void onUserClick(User user) {
-        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-        intent.putExtra(Constants.KEY_USER, user);
-        startActivity(intent);
-    }
-
     private void init() {
         preferenceManager = new PreferenceManager(getApplicationContext());
         markerActivities = new ArrayList<>();
-        selectedActivities = new ArrayList<>();
+        selectedMarkers = new ArrayList<>();
 
-        selectedActivityCardView = rootView.findViewById(R.id.selectedActivityCardView);
+        selectedMarkerInfo = rootView.findViewById(R.id.selectedMarkerInfo);
         clusterCardView = rootView.findViewById(R.id.clusterCardView);
-        activityCardRecyclerView = rootView.findViewById(R.id.activityCardRecyclerView);
+        markerRecyclerView = rootView.findViewById(R.id.markerRecyclerView);
         exploreBtn = rootView.findViewById(R.id.exploreBtn);
         fabAddActivityBtn = rootView.findViewById(R.id.fabAddActivity);
         imageView = markerView.findViewById(R.id.markerImage);
@@ -155,8 +146,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         markerCardView.measure(View.MeasureSpec.EXACTLY, View.MeasureSpec.EXACTLY);
         toTriangleEdgeCardView(markerCardView, getResources());
 
-        markerActivityAdapter = new MarkerActivityAdapter(selectedActivities,  preferenceManager.getString(Constants.KEY_USER_ID), this, this);
-        activityCardRecyclerView.setAdapter(markerActivityAdapter);
+        markersInfoAdapter = new MarkerActivityAdapter(selectedMarkers, preferenceManager.getString(Constants.KEY_USER_ID), this, this);
+        markerRecyclerView.setAdapter(markersInfoAdapter);
     }
 
     private void setListeners() {
@@ -165,20 +156,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         refreshMapBtn.setOnClickListener(v -> getMarkerActivities());
     }
 
-    // explore map method
-    private void onExploreClick() {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34, 151), 12));
-        clusterCardView.setVisibility(View.GONE);
-        activityCardRecyclerView.setVisibility(View.GONE);
-    }
-
     // get data
     private void getMarkerActivities() {
-        loading(true);
+        loading(getApplicationContext(), true);
         database.collection(Constants.KEY_COLLECTION_ACTIVITY)
                 .get()
                 .addOnCompleteListener(task -> {
-                    loading(false);
+                    loading(getApplicationContext(), false);
                     if (task.isSuccessful() && task.getResult() != null) {
                         List<MarkerActivity> markerActivityList = new ArrayList<>();
                         // each queryDocumentSnapshot contains a user data
@@ -201,9 +185,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
                             markerActivity.dateTime = getReadableDateTime(queryDocumentSnapshot.getDate(Constants.KEY_TIMESTAMP));
                             markerActivity.dateObject = queryDocumentSnapshot.getDate(Constants.KEY_TIMESTAMP);
                             markerActivity.active = queryDocumentSnapshot.getString(Constants.KEY_ACTIVE);
-                            if(Objects.equals(markerActivity.active, "true")) {
+                            if (Objects.equals(markerActivity.active, "true")) {
                                 markerActivityList.add(markerActivity);
-                                selectedActivities = markerActivityList;
                             }
                         }
                         if (markerActivityList.size() > 0) {
@@ -216,42 +199,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
 //                                    0
 //                            ) <= Double.parseDouble(preferenceManager.getString(Constants.KEY_DISTANCE))).collect(Collectors.toList());
                             markerActivities = markerActivityList;
-                            MarkerActivityAdapter markerActivityAdapter = new MarkerActivityAdapter(selectedActivities,
-                                    preferenceManager.getString(Constants.KEY_USER_ID),
-                                    this,
-                                    this
-                            );
-                            activityCardRecyclerView.setAdapter(markerActivityAdapter);
                             getMyActivity();
                             setUpCluster();
                         } else {
-                            showErrorMessage();
+                            Toast.makeText(getContext(), "Error occur when loading activity", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        showErrorMessage();
+                        Toast.makeText(getContext(), "Error occur when loading activity", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    // marker click method
-    @SuppressLint("NotifyDataSetChanged")
-    private void toggleSelectedMarkerCardView(String id) {
-//        Toast.makeText(getContext(), "id"+ id, Toast.LENGTH_SHORT).show();
-        for (MarkerActivity markerActivity : markerActivities) {
-            if (markerActivity.getId().equals(id)) {
-                selectedActivities = new ArrayList<>();
-                selectedActivities.add(markerActivity);
-                selectedActivities = markerActivities.stream()
-                        .filter(m -> Objects.equals(m.creatorId, preferenceManager.getString(Constants.KEY_USER_ID)))
-                        .collect(Collectors.toList());
-            }
-        }
-        markerActivityAdapter.notifyDataSetChanged();
-        markerActivityAdapter.notifyItemInserted(0);
-        Toast.makeText(getContext(), ""+ selectedActivities.size(), Toast.LENGTH_SHORT).show();
-        activityCardRecyclerView.setVisibility(View.VISIBLE);
-        clusterCardView.setVisibility(View.GONE);
-        fabAddActivityBtn.setVisibility(View.GONE);
     }
 
     // add map to fragment
@@ -279,7 +235,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
         mMap.setOnMarkerClickListener(clusterManager);
         clusterManager.setOnClusterItemClickListener(item -> {
             String itemId = item.getId();
-            toggleSelectedMarkerCardView(itemId);
+            showSelectedMarker(itemId);
             return false;
         });
         addItems();
@@ -323,42 +279,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
                         marker.setVisible(false);
                     }
                 }
-                selectedActivityCardView.setVisibility(View.GONE);
+                selectedMarkerInfo.setVisibility(View.GONE);
             }
         };
-    }
-
-    @Override
-    // add activity method
-    public void onEditActivityClick() {
-        if (myActivity == null) {
-            Intent intent = new Intent(getApplicationContext(), StartNewActivity.class);
-            intent.putExtra(Constants.KEY_CITY, addresses.get(0).getLocality());
-            intent.putExtra(Constants.KEY_LAT, String.valueOf(addresses.get(0).getLatitude()));
-            intent.putExtra(Constants.KEY_LNG, String.valueOf(addresses.get(0).getLongitude()));
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), StartNewActivity.class);
-            intent.putExtra(Constants.KEY_CITY, addresses.get(0).getLocality());
-            intent.putExtra(Constants.KEY_LAT, String.valueOf(addresses.get(0).getLatitude()));
-            intent.putExtra(Constants.KEY_LNG, String.valueOf(addresses.get(0).getLongitude()));
-            intent.putExtra(Constants.KEY_COLLECTION_ACTIVITY, myActivity);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onDeleteActivityClick(String id) {
-        loading(true);
-        DocumentReference documentReference = database
-                .collection(Constants.KEY_COLLECTION_ACTIVITY)
-                .document(id);
-        Map<String, Object> data = new HashMap<>();
-        data.put(Constants.KEY_ACTIVE, "false");
-        documentReference.set(data, SetOptions.merge()).addOnSuccessListener(unused -> loading(false))
-                .addOnFailureListener(e -> {
-                    loading(false);
-                    Toast.makeText(getApplicationContext(), "Delete activity failed: "+ e, Toast.LENGTH_SHORT).show();});
     }
 
     // get my activity
@@ -368,10 +291,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
                 myActivity = markerActivity;
             }
         }
+        if (myActivity == null) {
+            fabAddActivityBtn.setVisibility(View.VISIBLE);
+        }
     }
 
     private void getLocation() {
-        Toast.makeText(getContext(), "getLocation", Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(rootView.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -387,7 +312,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
                     if (locationResult == null) {
                         return;
                     }
+
                     for (Location location : locationResult.getLocations()) {
+                        Toast.makeText(getApplicationContext(), "address" + locationResult.getLocations(), Toast.LENGTH_SHORT).show();
                         if (location != null) {
                             try {
                                 // initialize geoCoder
@@ -410,43 +337,69 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, UserLis
                 }
             };
             LocationServices.getFusedLocationProviderClient(getApplicationContext()).requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-
-
-//            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
-//                Location location = task.getResult();
-//                Toast.makeText(getContext(), "complete", Toast.LENGTH_LONG).show();
-//                if (location != null) {
-//                    try {
-//                        // initialize geoCoder
-//                        Geocoder geocoder = new Geocoder(rootView.getContext(), Locale.getDefault());
-//                        // initialize address
-//                        addresses = geocoder.getFromLocation(
-//                                location.getLatitude(), location.getLongitude(), 1
-//                        );
-//                        Toast.makeText(getContext(), "address"+addresses.size(), Toast.LENGTH_LONG).show();
-//
-//                        if(addresses.size()>0) {
-//                            Toast.makeText(getContext(), ""+addresses.get(0).getLocality(), Toast.LENGTH_SHORT).show();
-//                            preferenceManager.putString(Constants.KEY_CITY, addresses.get(0).getLocality());
-//                        }
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            });
         }
     }
 
-    private void showErrorMessage() {
-        Toast.makeText(getContext(), "Error occur when loading activity", Toast.LENGTH_SHORT).show();
+    // marker click method
+    @SuppressLint("NotifyDataSetChanged")
+    private void showSelectedMarker(String id) {
+        markerRecyclerView.setVisibility(View.VISIBLE);
+        clusterCardView.setVisibility(View.GONE);
+        for (MarkerActivity marker : markerActivities) {
+            if (marker.getId().equals(id)) {
+                selectedMarkers.clear();
+                selectedMarkers.add(marker);
+                markersInfoAdapter.notifyDataSetChanged();
+                markerRecyclerView.smoothScrollToPosition(0);
+            }
+        }
     }
 
-    // show data loading message
-    private void loading(Boolean isLoading) {
-        if (isLoading) {
-//            Toast.makeText(getContext(), "loading activity", Toast.LENGTH_SHORT).show();
+    // explore map method
+    private void onExploreClick() {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34, 151), 12));
+        clusterCardView.setVisibility(View.GONE);
+    }
+
+    // send message method
+    @Override
+    public void onUserClick(User user) {
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        intent.putExtra(Constants.KEY_USER, user);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeleteActivityClick(String id) {
+        loading(getApplicationContext(), true);
+        DocumentReference documentReference = database
+                .collection(Constants.KEY_COLLECTION_ACTIVITY)
+                .document(id);
+        Map<String, Object> data = new HashMap<>();
+        data.put(Constants.KEY_ACTIVE, "false");
+        documentReference.set(data, SetOptions.merge()).addOnSuccessListener(unused -> loading(getApplicationContext(), false))
+                .addOnFailureListener(e -> {
+                    loading(getApplicationContext(), false);
+//                    Toast.makeText(getApplicationContext(), "Delete activity failed: " + e, Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    @Override
+    // add activity method
+    public void onEditActivityClick() {
+        if (myActivity == null) {
+            Intent intent = new Intent(getApplicationContext(), StartNewActivity.class);
+            intent.putExtra(Constants.KEY_CITY, addresses.get(0).getLocality());
+            intent.putExtra(Constants.KEY_LAT, String.valueOf(addresses.get(0).getLatitude()));
+            intent.putExtra(Constants.KEY_LNG, String.valueOf(addresses.get(0).getLongitude()));
+            startActivity(intent);
         } else {
-//            Toast.makeText(getContext(), "activity loaded", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), StartNewActivity.class);
+            intent.putExtra(Constants.KEY_CITY, addresses.get(0).getLocality());
+            intent.putExtra(Constants.KEY_LAT, String.valueOf(addresses.get(0).getLatitude()));
+            intent.putExtra(Constants.KEY_LNG, String.valueOf(addresses.get(0).getLongitude()));
+            intent.putExtra(Constants.KEY_COLLECTION_ACTIVITY, myActivity);
+            startActivity(intent);
         }
     }
 }

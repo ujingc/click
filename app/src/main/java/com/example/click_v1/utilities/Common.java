@@ -1,11 +1,13 @@
 package com.example.click_v1.utilities;
 
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -91,4 +93,13 @@ public class Common {
 
         return Math.sqrt(distance);
     }
+
+    public static void loading(Context context, Boolean isLoading) {
+        if (isLoading) {
+            Toast.makeText(context, "loading activity", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "activity loaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

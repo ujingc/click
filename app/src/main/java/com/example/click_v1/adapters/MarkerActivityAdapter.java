@@ -70,12 +70,12 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
     class MarkerActivityViewHolder extends RecyclerView.ViewHolder {
 
-        private final RecyclerView activityCardRecyclerView;
+        private final RecyclerView markerRecyclerView;
         private final MaterialButton sendBtn, viewOptionBtn, deleteButton, editButton;
 
         private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText;
 
-        private AppCompatImageView sendStarBtn;
+//        private AppCompatImageView sendStarBtn;
 
         private final RoundedImageView creatorImage;
 
@@ -88,7 +88,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
         public MarkerActivityViewHolder(View view) {
             super(view);
-            activityCardRecyclerView = view.findViewById(R.id.activityCardRecyclerView);
+            markerRecyclerView = view.findViewById(R.id.markerRecyclerView);
             sendBtn = view.findViewById(R.id.sendBtn);
             topicText = view.findViewById(R.id.topicText);
             titleText = view.findViewById(R.id.titleText);
@@ -98,7 +98,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
             secondsText = view.findViewById(R.id.secondsText);
             creatorNameText = view.findViewById(R.id.creatorNameText);
             creatorImage = view.findViewById(R.id.creatorImage);
-            sendStarBtn = view.findViewById(R.id.sendStarBtn);
+//            sendStarBtn = view.findViewById(R.id.sendStarBtn);
             viewOptionBtn = view.findViewById(R.id.viewOptionBtn);
             editButton = view.findViewById(R.id.editButton);
             deleteButton = view.findViewById(R.id.deleteButton);
@@ -113,12 +113,12 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
             countDownLeftTime = getDateDiff(markerActivity.dateObject, now, TimeUnit.MILLISECONDS);
             localTimer = getDownTimer(countDownLeftTime);
             localTimer.start();
-
             topicText.setText(markerActivity.topic);
             titleText.setText(markerActivity.title);
             descriptionText.setText(markerActivity.description);
             creatorImage.setImageBitmap(getBitmapFromEncodedString(markerActivity.creatorImage));
             creatorNameText.setText(markerActivity.creatorName);
+
             if (!Objects.equals(senderId, markerActivity.creatorId)) {
                 User user = new User();
                 user.name = markerActivity.creatorName;
@@ -130,10 +130,12 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
                 user.gender = markerActivity.gender;
                 user.token = markerActivity.token;
                 user.selfIntroduction = markerActivity.selfIntroduction;
+                viewOptionBtn.setVisibility(View.GONE);
                 sendBtn.setVisibility(View.VISIBLE);
+                sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
+            } else {
+                sendBtn.setVisibility(View.GONE);
                 viewOptionBtn.setVisibility(View.VISIBLE);
-                sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
-                sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
                 viewOptionBtn.setOnClickListener(v -> {
                     if (menu.getVisibility() == View.VISIBLE) {
                         menu.setVisibility(View.GONE);
@@ -144,11 +146,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
                 deleteButton.setOnClickListener(v -> {
                     menu.setVisibility(View.GONE);
                     activityCardListener.onDeleteActivityClick(markerActivity.id);
-
                 });
-            } else {
-                sendBtn.setVisibility(View.GONE);
-                viewOptionBtn.setVisibility(View.GONE);
             }
         }
 
@@ -167,7 +165,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
                 @Override
                 public void onFinish() {
-                    activityCardRecyclerView.setVisibility(View.GONE);
+                    markerRecyclerView.setVisibility(View.VISIBLE);
                 }
             };
         }
