@@ -116,6 +116,9 @@
     <string name="purchase">付款</string>
     <string name="custom_marker_image">custom marker image</string>
     <string name="find_activity_around_you">Find Activity Around You</string>
+    <string name="delete">Delete</string>
+    <string name="dots">。。。</string>
+    <string name="edit">Edit</string>
 
     String publishableKey;
 

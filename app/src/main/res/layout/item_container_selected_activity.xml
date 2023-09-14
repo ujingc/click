@@ -6,13 +6,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/selectedActivityCardView"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_170sdp"
+    android:layout_height="@dimen/_190sdp"
     android:background="@color/primary"
     android:clickable="true"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    app:layout_constraintStart_toStartOf="parent"
+    android:translationZ="99dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewOptionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="@string/dots"
+        android:textStyle="bold"
+        app:backgroundTint="@color/primary"
+        android:textSize="@dimen/_10ssp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="?android:attr/borderlessButtonStyle" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:translationZ="99dp"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:gravity="left|center_vertical"
+            android:layout_margin="0dp"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/edit"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_8ssp"
+            tools:ignore="RtlSymmetry"
+            app:cornerRadius="0dp"
+            app:backgroundTint="@color/white"
+            style="?android:attr/borderlessButtonStyle" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_8ssp"
+            android:padding="@dimen/_5sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/delete"
+            tools:ignore="RtlSymmetry"
+            app:cornerRadius="0dp"
+            app:backgroundTint="@color/white"
+            style="?android:attr/borderlessButtonStyle" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/viewSupporter"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewOptionBtn"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <!--    card title  -->
     <LinearLayout
@@ -20,12 +89,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/viewSupporter"
+        >
 
         <TextView
             android:id="@+id/topicText"
@@ -56,14 +125,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@color/primary_dark"
         android:orientation="horizontal"
         android:padding="@dimen/_5sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/title"
         app:layout_constraintStart_toEndOf="@id/title"
-        app:layout_constraintTop_toTopOf="@id/title">
+        app:layout_constraintTop_toTopOf="@+id/viewSupporter">
 
         <TextView
             android:layout_width="wrap_content"
@@ -142,7 +209,7 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:translationZ="@dimen/_100sdp"
+        android:translationZ="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@+id/sendBtn"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -177,27 +244,24 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!--    card send message to card owner-->
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sendBtn"
         android:layout_width="@dimen/_300sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/_5sdp"
         android:background="@drawable/background_long_button"
-        android:clickable="true"
+        android:text="@string/send_a_message"
+        android:textSize="@dimen/_12ssp"
+        app:backgroundTint="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
         android:gravity="center"
-        android:padding="@dimen/_10sdp"
-        android:visibility="gone"
+        android:padding="@dimen/_5sdp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/sendBtnText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send_a_message"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    </com.google.android.material.button.MaterialButton>
 </androidx.constraintlayout.widget.ConstraintLayout>

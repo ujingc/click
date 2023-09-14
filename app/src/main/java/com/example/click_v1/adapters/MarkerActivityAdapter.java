@@ -12,13 +12,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.click_v1.R;
+import com.example.click_v1.listeners.ActivityCardListener;
 import com.example.click_v1.listeners.UserListener;
 import com.example.click_v1.models.MarkerActivity;
 import com.example.click_v1.models.User;
+import com.google.android.material.button.MaterialButton;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Date;
@@ -34,10 +35,14 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
 
     private final String senderId;
 
-    public MarkerActivityAdapter(List<MarkerActivity> markerActivities, UserListener userListener, String senderId) {
+    private final ActivityCardListener activityCardListener;
+
+    public MarkerActivityAdapter(List<MarkerActivity> markerActivities, String senderId, UserListener userListener, ActivityCardListener activityCardListener) {
         this.markerActivities = markerActivities;
         this.userListener = userListener;
         this.senderId = senderId;
+        this.activityCardListener = activityCardListener;
+
     }
 
     @NonNull
@@ -66,7 +71,7 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
     class MarkerActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final RecyclerView activityCardRecyclerView;
-        private final LinearLayout sendBtn;
+        private final MaterialButton sendBtn, viewOptionBtn, deleteButton, editButton;
 
         private final TextView topicText, titleText, descriptionText, hoursText, minutesText, secondsText, creatorNameText;
 
@@ -77,6 +82,9 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
         private CountDownTimer localTimer;
 
         private Long countDownLeftTime;
+
+        private final LinearLayout menu;
+
 
         public MarkerActivityViewHolder(View view) {
             super(view);
@@ -91,6 +99,10 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
             creatorNameText = view.findViewById(R.id.creatorNameText);
             creatorImage = view.findViewById(R.id.creatorImage);
             sendStarBtn = view.findViewById(R.id.sendStarBtn);
+            viewOptionBtn = view.findViewById(R.id.viewOptionBtn);
+            editButton = view.findViewById(R.id.editButton);
+            deleteButton = view.findViewById(R.id.deleteButton);
+            menu = view.findViewById(R.id.menu);
         }
 
         void setData(MarkerActivity markerActivity) {
@@ -119,10 +131,27 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
                 user.token = markerActivity.token;
                 user.selfIntroduction = markerActivity.selfIntroduction;
                 sendBtn.setVisibility(View.VISIBLE);
+                viewOptionBtn.setVisibility(View.VISIBLE);
                 sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
                 sendBtn.setOnClickListener(v -> userListener.onUserClick(user));
+                viewOptionBtn.setOnClickListener(v -> {
+                    if (menu.getVisibility() == View.VISIBLE) {
+                        menu.setVisibility(View.GONE);
+                    } else {
+                        menu.setVisibility(View.VISIBLE);
+                    }
+                });
+                deleteButton.setOnClickListener(v -> {
+                    menu.setVisibility(View.GONE);
+                    activityCardListener.onDeleteActivityClick(markerActivity.id);
+
+                });
+            } else {
+                sendBtn.setVisibility(View.GONE);
+                viewOptionBtn.setVisibility(View.GONE);
             }
         }
+
 
         private CountDownTimer getDownTimer(Long millionSecond) {
             return new CountDownTimer(millionSecond, 1000) {
@@ -142,5 +171,6 @@ public class MarkerActivityAdapter extends RecyclerView.Adapter<MarkerActivityAd
                 }
             };
         }
+
     }
 }

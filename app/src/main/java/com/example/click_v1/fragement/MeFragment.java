@@ -106,8 +106,6 @@ public class MeFragment extends Fragment {
         startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
     }
 
-
-
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(rootView.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&

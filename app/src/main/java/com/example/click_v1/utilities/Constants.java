@@ -105,4 +105,6 @@ public class Constants {
 
     public static final String KEY_CITY = "city";
 
+    public static final String KEY_ACTIVE= "active";
+
 }

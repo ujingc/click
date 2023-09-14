@@ -72,6 +72,7 @@ public class StartNewActivity extends AppCompatActivity {
             activity.put(Constants.KEY_LOCATION, city);
             activity.put(Constants.KEY_TIMESTAMP, new Date());
             activity.put(Constants.KEY_CITY, preferenceManager.getString(Constants.KEY_CITY));
+            activity.put(Constants.KEY_ACTIVE, "true");
 
             if (myActivity == null) {
                 database.collection(Constants.KEY_COLLECTION_ACTIVITY).add(activity).addOnSuccessListener(documentReference -> {
@@ -85,7 +86,8 @@ public class StartNewActivity extends AppCompatActivity {
                                 Constants.KEY_DESCRIPTION, binding.announcementInput.getText().toString(),
                                 Constants.KEY_DISTANCE, preferenceManager.getString(Constants.KEY_DISTANCE),
                                 Constants.KEY_CITY, activity.get(Constants.KEY_CITY),
-                                Constants.KEY_TIMESTAMP, new Date())
+                                Constants.KEY_TIMESTAMP, new Date(),
+                                Constants.KEY_ACTIVE, "true")
                         .addOnSuccessListener(ref -> {
                             onBackPressed();
                         });
